@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-05T19:41:05+09:00",
+ "generated_at": "2026-11-05T20:00:12+09:00",
  "source": "병무청 병역일터 채용공고 (공공데이터포털 오픈API)",
  "count": 46,
  "jobs": [
@@ -37,6 +37,7 @@
    "homepage": "https://www.smartlink21.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001552089",
    "first_seen": "2026-11-04",
+   "field": [],
    "keywords": [
     "AI"
    ]
@@ -65,6 +66,7 @@
    "homepage": "http://mgensolutions.kr",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001549694",
    "first_seen": "2026-11-02",
+   "field": [],
    "keywords": []
   },
   {
@@ -100,6 +102,7 @@
    "homepage": "https://bluetilelab.com/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001549311",
    "first_seen": "2026-11-02",
+   "field": [],
    "keywords": [
     "AI"
    ]
@@ -137,6 +140,7 @@
    "homepage": "https://bluetilelab.com/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001549310",
    "first_seen": "2026-11-02",
+   "field": [],
    "keywords": [
     "AI"
    ]
@@ -176,6 +180,7 @@
    "homepage": "https://www.stonelab.kr",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001549306",
    "first_seen": "2026-11-02",
+   "field": [],
    "keywords": [
     "AI"
    ]
@@ -216,6 +221,7 @@
    "homepage": "https://www.unisonhkr.co.kr:40012/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001549302",
    "first_seen": "2026-11-02",
+   "field": [],
    "keywords": []
   },
   {
@@ -255,6 +261,7 @@
    "homepage": "https://www.unisonhkr.co.kr:40012/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001549301",
    "first_seen": "2026-11-02",
+   "field": [],
    "keywords": []
   },
   {
@@ -294,6 +301,7 @@
    "homepage": "https://www.unisonhkr.co.kr:40012/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001549300",
    "first_seen": "2026-11-02",
+   "field": [],
    "keywords": []
   },
   {
@@ -333,6 +341,7 @@
    "homepage": "https://www.unisonhkr.co.kr:40012/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001549299",
    "first_seen": "2026-11-02",
+   "field": [],
    "keywords": []
   },
   {
@@ -372,6 +381,7 @@
    "homepage": "https://www.unisonhkr.co.kr:40012/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001545500",
    "first_seen": "2026-10-23",
+   "field": [],
    "keywords": []
   },
   {
@@ -403,6 +413,7 @@
    "homepage": "https://recruit.madup.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001545496",
    "first_seen": "2026-10-23",
+   "field": [],
    "keywords": [
     "AI"
    ]
@@ -436,8 +447,10 @@
    "homepage": "https://recruit.madup.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001545495",
    "first_seen": "2026-10-23",
+   "field": [
+    "최적화"
+   ],
    "keywords": [
-    "최적화",
     "AI"
    ]
   },
@@ -476,6 +489,7 @@
    "homepage": "https://www.com2us.com/ko",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001545118",
    "first_seen": "2026-10-21",
+   "field": [],
    "keywords": [
     "AI"
    ]
@@ -515,6 +529,7 @@
    "homepage": "https://www.com2us.com/ko",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001545117",
    "first_seen": "2026-10-21",
+   "field": [],
    "keywords": [
     "AI"
    ]
@@ -548,6 +563,7 @@
    "homepage": "https://www.robocube.co.kr",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001545109",
    "first_seen": "2026-10-21",
+   "field": [],
    "keywords": []
   },
   {
@@ -582,6 +598,7 @@
    "homepage": "https://www.picopack.co.kr",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001543894",
    "first_seen": "2026-10-20",
+   "field": [],
    "keywords": []
   },
   {
@@ -616,6 +633,7 @@
    "homepage": "https://www.picopack.co.kr",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001543893",
    "first_seen": "2026-10-20",
+   "field": [],
    "keywords": []
   },
   {
@@ -650,6 +668,7 @@
    "homepage": "https://www.picopack.co.kr",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001543892",
    "first_seen": "2026-10-20",
+   "field": [],
    "keywords": []
   },
   {
@@ -676,6 +695,7 @@
    "homepage": "https://www.jlkgroup.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001542091",
    "first_seen": "2026-10-16",
+   "field": [],
    "keywords": [
     "인공지능"
    ]
@@ -712,6 +732,7 @@
    "homepage": "https://www.buzzvil.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001541913",
    "first_seen": "2026-10-16",
+   "field": [],
    "keywords": []
   },
   {
@@ -746,6 +767,7 @@
    "homepage": "https://www.buzzvil.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001541912",
    "first_seen": "2026-10-16",
+   "field": [],
    "keywords": []
   },
   {
@@ -782,6 +804,7 @@
    "homepage": "",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001541896",
    "first_seen": "2026-10-16",
+   "field": [],
    "keywords": []
   },
   {
@@ -814,6 +837,7 @@
    "homepage": "https://www.wooshinmed.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001540104",
    "first_seen": "2026-10-14",
+   "field": [],
    "keywords": []
   },
   {
@@ -849,6 +873,7 @@
    "homepage": "http://www.aivis.kr",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001538893",
    "first_seen": "2026-10-12",
+   "field": [],
    "keywords": [
     "AI",
     "데이터"
@@ -889,6 +914,7 @@
    "homepage": "https://www.stonelab.kr",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001538498",
    "first_seen": "2026-10-12",
+   "field": [],
    "keywords": [
     "AI"
    ]
@@ -925,7 +951,10 @@
    "homepage": "http://dable.io/ko/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001538289",
    "first_seen": "2026-10-12",
-   "keywords": []
+   "field": [],
+   "keywords": [
+    "예측"
+   ]
   },
   {
    "id": "2000001537889",
@@ -958,6 +987,7 @@
    "homepage": "https://www.moisten.co.kr",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001537889",
    "first_seen": "2026-10-08",
+   "field": [],
    "keywords": []
   },
   {
@@ -994,8 +1024,10 @@
    "homepage": "https://www.ai-biz.net",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001533089",
    "first_seen": "2026-10-06",
+   "field": [],
    "keywords": [
-    "인공지능"
+    "인공지능",
+    "딥러닝"
    ]
   },
   {
@@ -1032,6 +1064,7 @@
    "homepage": "https://www.ai-biz.net",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001532890",
    "first_seen": "2026-10-06",
+   "field": [],
    "keywords": [
     "인공지능",
     "데이터"
@@ -1066,6 +1099,7 @@
    "homepage": "https://recruit.madup.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001530489",
    "first_seen": "2026-10-01",
+   "field": [],
    "keywords": [
     "데이터"
    ]
@@ -1103,6 +1137,7 @@
    "homepage": "https://www.bigvalue.co.kr/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001523489",
    "first_seen": "2026-09-28",
+   "field": [],
    "keywords": [
     "AI"
    ]
@@ -1137,6 +1172,7 @@
    "homepage": "",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001519291",
    "first_seen": "2026-09-21",
+   "field": [],
    "keywords": [
     "AI",
     "데이터"
@@ -1175,8 +1211,10 @@
    "homepage": "https://www.sovargen.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001516289",
    "first_seen": "2026-09-18",
+   "field": [],
    "keywords": [
-    "데이터"
+    "데이터",
+    "예측"
    ]
   },
   {
@@ -1210,6 +1248,7 @@
    "homepage": "",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001515089",
    "first_seen": "2026-09-17",
+   "field": [],
    "keywords": [
     "AI",
     "강화학습"
@@ -1248,6 +1287,7 @@
    "homepage": "https://datarize.ai/ko",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001508289",
    "first_seen": "2026-09-10",
+   "field": [],
    "keywords": [
     "데이터"
    ]
@@ -1284,6 +1324,7 @@
    "homepage": "http://www.acryl.ai",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001471690",
    "first_seen": "2026-08-11",
+   "field": [],
    "keywords": [
     "AI",
     "인공지능"
@@ -1321,6 +1362,7 @@
    "homepage": "http://www.acryl.ai",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001464290",
    "first_seen": "2026-08-04",
+   "field": [],
    "keywords": [
     "AI",
     "인공지능"
@@ -1360,6 +1402,7 @@
    "homepage": "https://www.nanotek.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001429094",
    "first_seen": "2026-07-06",
+   "field": [],
    "keywords": []
   },
   {
@@ -1396,6 +1439,7 @@
    "homepage": "https://www.nanotek.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001428892",
    "first_seen": "2026-07-06",
+   "field": [],
    "keywords": []
   },
   {
@@ -1431,8 +1475,10 @@
    "homepage": "https://www.neumous.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001359891",
    "first_seen": "2026-05-07",
+   "field": [],
    "keywords": [
-    "AI"
+    "AI",
+    "딥러닝"
    ]
   },
   {
@@ -1468,6 +1514,7 @@
    "homepage": "https://www.neumous.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001359889",
    "first_seen": "2026-05-07",
+   "field": [],
    "keywords": []
   },
   {
@@ -1504,6 +1551,7 @@
    "homepage": "https://onpoom.co.kr/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001301692",
    "first_seen": "2026-03-16",
+   "field": [],
    "keywords": [
     "AI"
    ]
@@ -1542,6 +1590,7 @@
    "homepage": "https://onpoom.co.kr/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001301691",
    "first_seen": "2026-03-16",
+   "field": [],
    "keywords": []
   },
   {
@@ -1575,6 +1624,7 @@
    "homepage": "https://www.funzin.co.kr",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001294689",
    "first_seen": "2026-03-06",
+   "field": [],
    "keywords": [
     "AI"
    ]
@@ -1618,6 +1668,7 @@
    "homepage": "https://www.madde.co.kr",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001279721",
    "first_seen": "2026-02-20",
+   "field": [],
    "keywords": []
   },
   {
@@ -1654,6 +1705,7 @@
    "homepage": "https://onpoom.co.kr/",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000000950090",
    "first_seen": "2025-03-05",
+   "field": [],
    "keywords": []
   }
  ]
