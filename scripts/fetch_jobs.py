@@ -266,9 +266,11 @@ def main() -> int:
     cutoff = (datetime.strptime(today, "%Y-%m-%d") - timedelta(days=180)).strftime("%Y-%m-%d")
     seen = {k: v for k, v in seen.items() if v["last"] >= cutoff}  # 오래전에 사라진 공고 기록은 정리
 
+    match_field = keyword_matcher(config.get("field_keywords", []))
     match = keyword_matcher(config.get("interest_keywords", []))
     for j in jobs:
-        j["keywords"] = match(j)
+        j["field"] = match_field(j)      # 내 분야 키워드 (예: 최적화, 산업공학)
+        j["keywords"] = match(j)         # 일반 관심 키워드 (예: AI)
         for k in [k for k in j if k.startswith("_")]:
             del j[k]
     jobs.sort(key=lambda j: (j["first_seen"], j["posted"], j["id"]), reverse=True)
@@ -287,16 +289,20 @@ def main() -> int:
 
     # 5) 관심 키워드에 맞는 신규 공고 요약 (GitHub 이슈 알림용)
     if args.notify_file and config.get("notify_new_matches", True):
-        hits = [j for j in newly_seen if j["keywords"]]
+        hits = [j for j in newly_seen if j["field"] or j["keywords"]]
+        hits.sort(key=lambda j: (not j["field"], j["deadline"] or "9999"))  # 내 분야 공고를 맨 위로
         if hits:
-            lines = [f"새로 올라온 관심 공고 {len(hits)}건 ({today})", ""]
+            n_field = sum(1 for j in hits if j["field"])
+            label = config.get("field_label", "내 분야")
+            lines = [f"새로 올라온 관심 공고 {len(hits)}건 ({label} {n_field}건, {today})", ""]
             if site_url:
                 lines += [f"전체 목록: {site_url}", ""]
             for j in hits:
                 due = "상시채용" if j["always_open"] else (f"마감 {j['deadline']}" if j["deadline"] else "")
                 meta = " · ".join(x for x in [j["service"], j["salary"], j["sido"], due] if x)
-                lines.append(f"- **[{j['company']}] {j['title']}** — {meta}  ")
-                lines.append(f"  키워드: {', '.join(j['keywords'])} · [병역일터에서 보기]({j['url']})")
+                tag = f"[{label}] " if j["field"] else ""
+                lines.append(f"- {tag}**[{j['company']}] {j['title']}** — {meta}  ")
+                lines.append(f"  키워드: {', '.join(j['field'] + j['keywords'])} · [병역일터에서 보기]({j['url']})")
             Path(args.notify_file).write_text("\n".join(lines) + "\n", encoding="utf-8")
             print(f"알림 대상 {len(hits)}건 → {args.notify_file}")
     return 0

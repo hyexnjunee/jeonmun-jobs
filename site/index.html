@@ -22,6 +22,7 @@
   --marker-ink: #5A4A00;
   --teal: #0B6E69;
   --teal-soft: #E1F0EE;
+  --field-mk: #9FE3CF;
   --urgent: #B42318;
   --weekend: #E9EDF1;
   --radius-s: 4px;
@@ -40,6 +41,7 @@ a { color: var(--teal); text-underline-offset: 3px; }
 button, input, select { font: inherit; color: inherit; }
 :focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; border-radius: 3px; }
 mark { background: linear-gradient(transparent 38%, var(--marker) 38%, var(--marker) 92%, transparent 92%); color: inherit; padding: 0 1px; }
+mark.f { background: linear-gradient(transparent 30%, var(--field-mk) 30%, var(--field-mk) 94%, transparent 94%); font-weight: 600; }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -61,6 +63,7 @@ mark { background: linear-gradient(transparent 38%, var(--marker) 38%, var(--mar
 .legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; border-radius: 2px; }
 .legend .k { background: var(--marker); box-shadow: inset 0 0 0 1px #C9AE1E; }
 .legend .o { background: #9AA6B2; }
+.legend .f { background: var(--teal); }
 .track-wrap { display: flex; gap: 14px; align-items: stretch; }
 .track { flex: 1; display: grid; grid-template-columns: repeat(42, minmax(0, 1fr)); gap: 2px; min-width: 0; }
 .day { position: relative; border: 0; padding: 0 0 22px; background: none; cursor: pointer; display: flex; flex-direction: column-reverse; align-items: center; gap: 2px; min-height: 104px; border-radius: 3px; }
@@ -73,6 +76,7 @@ mark { background: linear-gradient(transparent 38%, var(--marker) 38%, var(--mar
 .day.empty:hover::before { background: transparent; }
 .day .sq { position: relative; width: 70%; max-width: 12px; aspect-ratio: 1; border-radius: 2px; background: #9AA6B2; }
 .day .sq.k { background: var(--marker); box-shadow: inset 0 0 0 1px #C9AE1E; }
+.day .sq.f { background: var(--teal); box-shadow: none; }
 .day .more { position: relative; font-size: 10px; line-height: 1; color: var(--ink-2); white-space: nowrap; }
 .day .lbl { position: absolute; bottom: 0; left: 0; font-size: 11px; color: var(--ink-3); white-space: nowrap; }
 .day.today .lbl { color: var(--urgent); font-weight: 600; }
@@ -109,6 +113,7 @@ select { height: 36px; border: 1px solid var(--rule); background: var(--sheet); 
 .kw-edit { font-size: 14px; color: var(--ink-2); }
 .kw-edit summary { cursor: pointer; color: var(--ink-2); width: fit-content; }
 .kw-edit .box { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.kw-edit .box label { min-width: 150px; color: var(--ink-2); }
 .kw-edit input { flex: 1 1 360px; height: 36px; border: 1px solid var(--rule); border-radius: var(--radius-s); padding: 0 10px; background: var(--sheet); }
 .kw-edit button { height: 36px; border: 1px solid var(--ink); background: var(--ink); color: #fff; border-radius: var(--radius-s); padding: 0 14px; cursor: pointer; }
 .kw-edit button.ghost { background: var(--sheet); color: var(--ink); border-color: var(--rule); }
@@ -118,6 +123,8 @@ select { height: 36px; border: 1px solid var(--rule); background: var(--sheet); 
 .list { margin: 20px 0 0; padding: 0; list-style: none; background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius-m); }
 .job { display: grid; grid-template-columns: 84px minmax(0, 1fr) 200px; gap: 18px; padding: 20px 22px; border-top: 1px solid var(--rule-2); }
 .job:first-child { border-top: 0; }
+.job.field { box-shadow: inset 4px 0 0 var(--teal); background: #F7FBFA; }
+.fieldtag { font-size: 12px; font-weight: 600; color: #fff; background: var(--teal); border-radius: 3px; padding: 0 6px; }
 .due { text-align: left; }
 .due .d { font-size: 22px; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
 .due .date { font-size: 13px; color: var(--ink-3); }
@@ -135,7 +142,7 @@ select { height: 36px; border: 1px solid var(--rule); background: var(--sheet); 
 .side { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--ink-2); }
 .side .pay { font-size: 16px; font-weight: 600; color: var(--ink); }
 .svc { align-self: flex-start; font-size: 13px; font-weight: 600; border-radius: 3px; padding: 1px 8px; border: 1px solid var(--ink-2); color: var(--ink-2); }
-.svc.bo { background: var(--teal); border-color: var(--teal); color: #fff; }
+.svc.bo { background: var(--ink); border-color: var(--ink); color: #fff; }
 .actions { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; font-size: 14px; align-items: center; }
 .save { border: 1px solid var(--rule); background: var(--sheet); border-radius: var(--radius-s); padding: 3px 10px; cursor: pointer; color: var(--ink-2); font-size: 13px; }
 .save[aria-pressed="true"] { border-color: var(--marker-ink); background: var(--marker); color: var(--marker-ink); font-weight: 600; }
@@ -186,7 +193,7 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     <div class="timeline">
       <div class="timeline-head">
         <h2 id="tl-title">앞으로 6주 마감 일정</h2>
-        <div class="legend"><span><i class="k"></i>관심 키워드 공고</span><span><i class="o"></i>그 밖의 공고</span></div>
+        <div class="legend"><span><i class="f"></i><span class="field-label">내 분야</span> 공고</span><span><i class="k"></i>관심 키워드 공고</span><span><i class="o"></i>그 밖의 공고</span></div>
       </div>
       <div class="track-wrap">
         <div class="track" id="track" role="group" aria-label="날짜별 마감 공고 수. 날짜를 누르면 그날 마감 공고만 보여요."></div>
@@ -209,26 +216,31 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
         <label><span class="sr-only">연봉</span><select id="pay"></select></label>
         <label><span class="sr-only">업종</span><select id="ind"></select></label>
         <button class="toggle" id="t-new" aria-pressed="false">새 공고만</button>
-        <button class="toggle" id="t-kw" aria-pressed="false">관심 키워드만</button>
+        <button class="toggle" id="t-field" aria-pressed="false"><span class="field-label">내 분야</span>만</button>
+        <button class="toggle" id="t-kw" aria-pressed="false">키워드 표시 공고만</button>
         <button class="toggle" id="t-saved" aria-pressed="false">저장한 공고만</button>
         <span class="spacer"></span>
         <label><span class="sr-only">정렬</span><select id="sort">
           <option value="new">새로 올라온 순</option>
           <option value="due">마감 임박순</option>
           <option value="pay">연봉 높은 순</option>
-          <option value="kw">관심 키워드 많은 순</option>
+          <option value="kw">내 분야·관심 키워드 순</option>
         </select></label>
       </div>
       <div class="status" id="status" aria-live="polite"></div>
       <details class="kw-edit" id="kw-edit">
-        <summary>관심 키워드 바꾸기</summary>
+        <summary>키워드 바꾸기</summary>
         <div class="box">
-          <label class="sr-only" for="kw-input">관심 키워드 (쉼표로 구분)</label>
+          <label for="field-input"><span class="field-label">내 분야</span> 키워드 (초록)</label>
+          <input id="field-input" type="text">
+        </div>
+        <div class="box">
+          <label for="kw-input">관심 키워드 (노랑)</label>
           <input id="kw-input" type="text">
           <button id="kw-save">키워드 적용</button>
           <button id="kw-reset" class="ghost">기본값으로</button>
         </div>
-        <p>쉼표로 구분해 입력하세요. 여기서 바꾼 키워드는 이 브라우저에만 적용돼요. 새 공고 알림 키워드는 site/config.json에서 바꿔요.</p>
+        <p>쉼표로 구분해 입력하세요. 공고 제목, 담당업무, 회사명에서 찾아요. 여기서 바꾼 키워드는 이 브라우저에만 적용되고, 새 공고 알림 키워드는 site/config.json에서 바꿔요.</p>
       </details>
     </div>
   </section>
@@ -257,8 +269,9 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
   var WEEK = ["일", "월", "화", "수", "목", "금", "토"];
   var SIDO_SHORT = { "서울특별시": "서울", "부산광역시": "부산", "대구광역시": "대구", "인천광역시": "인천", "광주광역시": "광주", "대전광역시": "대전", "울산광역시": "울산", "세종특별자치시": "세종", "경기도": "경기", "강원도": "강원", "강원특별자치도": "강원", "충청북도": "충북", "충청남도": "충남", "전라북도": "전북", "전북특별자치도": "전북", "전라남도": "전남", "경상북도": "경북", "경상남도": "경남", "제주특별자치도": "제주" };
 
-  var config, data, jobs = [], refDate, matchers = [], saved = {}, shown = PAGE;
-  var defaults = { q: "", svc: "", sido: "", edu: "", pay: 0, ind: "", onlyNew: false, onlyKw: false, onlySaved: false, sort: "new", day: "" };
+  var K_FIELD = "jmjobs.field.v1";
+  var config, data, jobs = [], refDate, matchers = [], fieldMatchers = [], saved = {}, shown = PAGE;
+  var defaults = { q: "", svc: "", sido: "", edu: "", pay: 0, ind: "", onlyNew: false, onlyField: false, onlyKw: false, onlySaved: false, sort: "new", day: "" };
   var f = {};
 
   // ---------- 날짜
@@ -288,23 +301,30 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
       return { kw: kw, re: new RegExp(e, "gi") };
     });
   }
+  // [시작, 끝, 내 분야 여부] 구간을 모아 겹치면 합친다. 겹친 구간에 내 분야가 있으면 내 분야 색으로.
   function ranges(text) {
     var out = [];
-    matchers.forEach(function (m) { m.re.lastIndex = 0; var r; while ((r = m.re.exec(text))) { out.push([r.index, r.index + r[0].length]); if (!r[0].length) m.re.lastIndex++; } });
+    [[fieldMatchers, true], [matchers, false]].forEach(function (g) {
+      g[0].forEach(function (m) { m.re.lastIndex = 0; var r; while ((r = m.re.exec(text))) { out.push([r.index, r.index + r[0].length, g[1]]); if (!r[0].length) m.re.lastIndex++; } });
+    });
     out.sort(function (a, b) { return a[0] - b[0] || b[1] - a[1]; });
     var merged = [];
-    out.forEach(function (r) { var last = merged[merged.length - 1]; if (last && r[0] <= last[1]) last[1] = Math.max(last[1], r[1]); else merged.push(r.slice()); });
+    out.forEach(function (r) {
+      var last = merged[merged.length - 1];
+      if (last && r[0] < last[1]) { last[1] = Math.max(last[1], r[1]); last[2] = last[2] || r[2]; }
+      else merged.push(r.slice());
+    });
     return merged;
   }
   function hl(text) {
     text = String(text || "");
     var rs = ranges(text), html = "", pos = 0;
-    rs.forEach(function (r) { html += esc(text.slice(pos, r[0])) + "<mark>" + esc(text.slice(r[0], r[1])) + "</mark>"; pos = r[1]; });
+    rs.forEach(function (r) { html += esc(text.slice(pos, r[0])) + (r[2] ? '<mark class="f">' : "<mark>") + esc(text.slice(r[0], r[1])) + "</mark>"; pos = r[1]; });
     return html + esc(text.slice(pos));
   }
-  function kwOf(j) {
+  function kwOf(j, ms) {
     var text = [j.title, j.duty, j.company].join(" ");
-    return matchers.filter(function (m) { m.re.lastIndex = 0; return m.re.test(text); }).map(function (m) { return m.kw; });
+    return (ms || matchers).filter(function (m) { m.re.lastIndex = 0; return m.re.test(text); }).map(function (m) { return m.kw; });
   }
   function shortLoc(j) {
     var parts = (j.location || j.sido || "").split(/\s+/).filter(Boolean);
@@ -335,7 +355,8 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     if (f.pay && !(j.salary_min >= f.pay)) return false;
     if (f.ind && j.industry !== f.ind) return false;
     if (f.onlyNew && !j._new) return false;
-    if (f.onlyKw && !j._kw.length) return false;
+    if (f.onlyField && !j._field.length) return false;
+    if (f.onlyKw && !j._field.length && !j._kw.length) return false;
     if (f.onlySaved && !saved[j.id]) return false;
     if (skip !== "day" && f.day) {
       if (f.day === "open") { if (!j.always_open) return false; }
@@ -348,19 +369,22 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     "new": function (a, b) { return cmp(b.first_seen, a.first_seen) || cmp(b.posted, a.posted); },
     "due": function (a, b) { return dueKey(a) - dueKey(b) || cmp(b.first_seen, a.first_seen); },
     "pay": function (a, b) { return (b.salary_min == null ? -1 : b.salary_min) - (a.salary_min == null ? -1 : a.salary_min) || dueKey(a) - dueKey(b); },
-    "kw": function (a, b) { return b._kw.length - a._kw.length || cmp(b.first_seen, a.first_seen); }
+    "kw": function (a, b) { return score(b) - score(a) || cmp(b.first_seen, a.first_seen); }
   };
+  function score(j) { return j._field.length * 10 + j._kw.length; }
   function cmp(a, b) { return a < b ? -1 : a > b ? 1 : 0; }
   function dueKey(j) { if (j.always_open || !j.deadline) return 1e6; return daysLeft(j); }
 
   // ---------- 그리기
   function renderFacts() {
     var nNew = jobs.filter(function (j) { return j._new; }).length;
+    var nField = jobs.filter(function (j) { return j._field.length; }).length;
     var nKw = jobs.filter(function (j) { return j._kw.length; }).length;
     var gen = data.generated_at ? longDate(data.generated_at) : "알 수 없음";
     $("facts").innerHTML =
       "<span>지원 가능한 공고 <b>" + jobs.length + "건</b></span>" +
       "<span>최근 " + (config.new_days || 3) + "일 새 공고 <b>" + nNew + "건</b></span>" +
+      "<span>" + esc(fieldLabel()) + " 공고 <b>" + nField + "건</b></span>" +
       "<span>관심 키워드 공고 <b>" + nKw + "건</b></span>" +
       "<span>업데이트 " + esc(gen) + "</span>" +
       (data.demo ? "" : "<a href=\"feed.xml\">RSS 구독</a>");
@@ -386,9 +410,9 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     for (var i = 0; i < DAYS; i++) {
       var day = addDays(refDate, i), list = byDay[day] || [];
       var dow = new Date(toUTC(day)).getUTCDay();
-      list.sort(function (a, b) { return a._kw.length ? -1 : b._kw.length ? 1 : 0; });
+      list.sort(function (a, b) { return tier(b) - tier(a); });
       var max = 7, sq = "";
-      list.slice(0, max).forEach(function (j) { sq += '<span class="sq' + (j._kw.length ? " k" : "") + '"></span>'; });
+      list.slice(0, max).forEach(function (j) { sq += '<span class="sq' + (j._field.length ? " f" : j._kw.length ? " k" : "") + '"></span>'; });
       if (list.length > max) sq += '<span class="more">+' + (list.length - max) + "</span>";
       var lbl = i === 0 ? "오늘" : dow === 1 && i > 2 ? md(day).replace(/\(.\)/, "") : "";
       var cls = "day" + (dow === 0 || dow === 6 ? " we" : "") + (i === 0 ? " today" : "") + (f.day === day ? " sel" : "") + (list.length ? "" : " empty");
@@ -431,7 +455,7 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     }), f.pay || "", function (v) { return (v[0] / 1000).toFixed(1).replace(".0", ",000").replace(".5", ",500") + "만 원 이상 (" + v[1] + ")"; });
     $("sort").value = f.sort;
     $("q").value = f.q;
-    [["t-new", "onlyNew"], ["t-kw", "onlyKw"], ["t-saved", "onlySaved"]].forEach(function (p) { $(p[0]).setAttribute("aria-pressed", String(!!f[p[1]])); });
+    TOGGLES.forEach(function (p) { $(p[0]).setAttribute("aria-pressed", String(!!f[p[1]])); });
   }
 
   function dueHtml(j) {
@@ -448,10 +472,12 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     var more = [
       ["접수 방법", j.apply_method], ["모집 인원", j.headcount], ["근무지", j.location],
       ["복리후생", (j.welfare || []).join(", ")], ["공고 등록일", j.posted], ["이 사이트에 처음 뜬 날", j.first_seen],
-      ["관심 키워드", j._kw.join(", ")]
-    ].filter(function (r) { return r[1]; }).map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + esc(r[1]) + "</dd>"; }).join("");
-    return '<li class="job">' + dueHtml(j) +
-      '<div class="main"><div class="co"><span>' + hl(j.company) + "</span>" + (j._new ? '<span class="new">새 공고</span>' : "") + "</div>" +
+      [fieldLabel() + " 키워드", j._field.join(", ")], ["관심 키워드", j._kw.join(", ")]
+    ].filter(function (r) { return r[1]; }).map(function (r) { return "<dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1]) + "</dd>"; }).join("");
+    return '<li class="job' + (j._field.length ? " field" : "") + '">' + dueHtml(j) +
+      '<div class="main"><div class="co"><span>' + hl(j.company) + "</span>" +
+      (j._field.length ? '<span class="fieldtag">' + esc(fieldLabel()) + "</span>" : "") +
+      (j._new ? '<span class="new">새 공고</span>' : "") + "</div>" +
       '<h3><a href="' + esc(j.url) + '" target="_blank" rel="noopener">' + hl(j.title) + "</a></h3>" +
       (j.duty ? '<p class="duty">' + hl(j.duty) + "</p>" : "") +
       (tags ? '<div class="tags">' + tags + "</div>" : "") +
@@ -498,7 +524,7 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     $("svc").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; f.svc = b.getAttribute("data-svc"); refresh(); });
     [["sido", "sido"], ["edu", "edu"], ["ind", "ind"], ["sort", "sort"]].forEach(function (p) { $(p[0]).addEventListener("change", function (e) { f[p[1]] = e.target.value; refresh(); }); });
     $("pay").addEventListener("change", function (e) { f.pay = +e.target.value || 0; refresh(); });
-    [["t-new", "onlyNew"], ["t-kw", "onlyKw"], ["t-saved", "onlySaved"]].forEach(function (p) {
+    TOGGLES.forEach(function (p) {
       $(p[0]).addEventListener("click", function (e) { f[p[1]] = !f[p[1]]; e.currentTarget.setAttribute("aria-pressed", String(f[p[1]])); refresh(); });
     });
     function pickDay(e) { var b = e.target.closest("[data-day]"); if (!b || b.classList.contains("empty")) return; var d = b.getAttribute("data-day"); f.day = f.day === d ? "" : d; refresh(); }
@@ -517,21 +543,27 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
       }
     });
     $("more").addEventListener("click", function () { shown += PAGE; renderList(); });
+    function split(id) { return $(id).value.split(",").map(function (s) { return s.trim(); }).filter(Boolean); }
     $("kw-save").addEventListener("click", function () {
-      var kws = $("kw-input").value.split(",").map(function (s) { return s.trim(); }).filter(Boolean);
-      store.set(K_KW, kws); applyKeywords(kws);
+      var fk = split("field-input"), kws = split("kw-input");
+      store.set(K_FIELD, fk); store.set(K_KW, kws); applyKeywords(fk, kws);
     });
     $("kw-reset").addEventListener("click", function () {
-      try { localStorage.removeItem(K_KW); } catch (e) {}
-      applyKeywords(config.interest_keywords || []);
+      try { localStorage.removeItem(K_KW); localStorage.removeItem(K_FIELD); } catch (e) {}
+      applyKeywords(config.field_keywords || [], config.interest_keywords || []);
     });
   }
-  function applyKeywords(kws) {
+  function applyKeywords(fk, kws) {
+    fieldMatchers = buildMatchers(fk);
     matchers = buildMatchers(kws);
+    $("field-input").value = fk.join(", ");
     $("kw-input").value = kws.join(", ");
-    jobs.forEach(function (j) { j._kw = kwOf(j); });
+    jobs.forEach(function (j) { j._field = kwOf(j, fieldMatchers); j._kw = kwOf(j, matchers); });
     renderFacts(); refresh();
   }
+  var TOGGLES = [["t-new", "onlyNew"], ["t-field", "onlyField"], ["t-kw", "onlyKw"], ["t-saved", "onlySaved"]];
+  function fieldLabel() { return (config && config.field_label) || "내 분야"; }
+  function tier(j) { return j._field.length ? 2 : j._kw.length ? 1 : 0; }
 
   // ---------- 시작
   function start(cfg, d) {
@@ -543,11 +575,14 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     jobs = (data.jobs || []).filter(function (j) { return j.always_open || !j.deadline || j.deadline >= refDate; });
     jobs.forEach(function (j) { j._new = isNew(j); });
     loadFilters();
+    Array.prototype.forEach.call(document.querySelectorAll(".field-label"), function (el) { el.textContent = fieldLabel(); });
+    var fk = store.get(K_FIELD, null) || config.field_keywords || [];
     var kws = store.get(K_KW, null) || config.interest_keywords || [];
-    matchers = buildMatchers(kws);
-    $("kw-input").value = kws.join(", ");
-    jobs.forEach(function (j) { j._kw = kwOf(j); });
-    renderFacts(); renderSelects(); bind(); refresh();
+    // 예전 버전에서 저장한 관심 키워드는 내 분야 키워드와 나뉘기 전 목록이라 새 기본값을 쓴다
+    if (!store.get(K_FIELD, null) && store.get(K_KW, null)) { kws = config.interest_keywords || []; try { localStorage.removeItem(K_KW); } catch (e) {} }
+    bind();
+    applyKeywords(fk, kws);
+    renderSelects();
   }
   function fail(msg) {
     $("facts").innerHTML = "";
