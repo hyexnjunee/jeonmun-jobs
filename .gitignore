@@ -1,0 +1,4 @@
+notify.md
+__pycache__/
+*.tmp
+.DS_Store

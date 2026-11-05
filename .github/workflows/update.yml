@@ -1,0 +1,71 @@
+name: 공고 업데이트
+
+on:
+  schedule:
+    # 3시간마다 실행 (cron은 UTC 기준이지만 3시간 간격이라 한국시간에도 그대로 3시간마다)
+    # GitHub 사정으로 몇 분~수십 분 늦게 실행될 수 있어요.
+    - cron: "17 */3 * * *"
+  workflow_dispatch: # Actions 탭에서 'Run workflow'로 바로 실행
+  push:
+    branches: [main]
+    paths: ["site/index.html", "site/config.json", "scripts/**", ".github/workflows/**"]
+
+permissions:
+  contents: write # 수집한 데이터(jobs.json, seen.json)를 저장소에 커밋
+  pages: write # GitHub Pages 배포
+  id-token: write
+  issues: write # 관심 키워드 새 공고 알림 이슈
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 병역일터 API에서 전문연구요원 공고 수집
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+        run: python scripts/fetch_jobs.py --notify-file notify.md
+
+      - name: 바뀐 데이터 커밋
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/jobs.json site/feed.xml state/seen.json
+          if git diff --cached --quiet; then
+            echo "바뀐 공고 없음"
+          else
+            git commit -m "공고 업데이트 $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M')"
+            git push
+          fi
+
+      - name: 관심 키워드 새 공고 알림 (GitHub 이슈)
+        if: hashFiles('notify.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --title "새 관심 공고 $(TZ=Asia/Seoul date '+%m/%d %H:%M')" --body-file notify.md
+
+      # 수집이 실패해도(예: 인증키 미등록) 사이트는 배포해서 화면에 안내가 뜨게 한다. 실행 결과는 실패로 남는다.
+      - uses: actions/configure-pages@v5
+        if: ${{ !cancelled() }}
+
+      - uses: actions/upload-pages-artifact@v3
+        if: ${{ !cancelled() }}
+        with:
+          path: site
+
+      - id: deploy
+        if: ${{ !cancelled() }}
+        uses: actions/deploy-pages@v4

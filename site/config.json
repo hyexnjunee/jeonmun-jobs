@@ -1,0 +1,11 @@
+{
+  "site_title": "전문연구요원 채용공고 모아보기",
+  "default_service": "",
+  "interest_keywords": [
+    "최적화", "스케줄링", "운영연구", "수리모델", "MIP", "OR",
+    "물류", "항만", "공급망", "SCM", "생산계획",
+    "알고리즘", "AI", "인공지능", "머신러닝", "강화학습", "데이터"
+  ],
+  "new_days": 3,
+  "notify_new_matches": true
+}
