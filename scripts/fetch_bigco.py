@@ -245,7 +245,7 @@ def export_all_labs(rows: list[dict], groups: list[dict]) -> int:
             "group": g["name"] if g else "",
         })
     # 확인용: 업종 무관(산업기능요원 포함) 항만·해운·물류 관련 지정업체
-    port = re.compile(r"항만|해운|물류|로지스|로지텍|터미널|컨테이너|쉬핑|글로비스|판토스|소프트뱅크|싸이버|사이버로|부산신항|PNIT|BNCT|HPNT", re.I)
+    port = re.compile(r"항만|해운|물류|로지텍|터미널|컨테이너|쉬핑|글로비스|판토스|소프트뱅크|싸이버|사이버로|부산신항|PNIT|BNCT|HPNT", re.I)
     pm = []
     for raw in rows:
         r = {k.lower(): (v or "").strip() for k, v in raw.items()}
