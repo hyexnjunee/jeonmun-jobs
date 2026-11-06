@@ -315,6 +315,11 @@ def main() -> int:
         "groups": [{"name": g["name"], "url": g.get("url", "")} for g in groups],
     }
 
+    # 그룹 매핑은 config가 바뀌면 바로 반영되도록 저장된 목록에도 매번 다시 적용
+    for c in result["companies"]:
+        g = group_of(c["name"], groups)
+        c["group"] = g["name"] if g else ""
+
     # 1) 지정 대기업 연구소 (6일에 한 번)
     stale = True
     if result["companies_updated_at"] and result["companies"]:
