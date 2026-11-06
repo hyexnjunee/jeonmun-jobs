@@ -28,7 +28,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from fetch_jobs import KST, SITE, parse_page, write_json  # noqa: E402
+from fetch_jobs import KST, SITE, _homepage, parse_page, write_json  # noqa: E402
 
 # 문서상 주소는 첫 번째지만 '서비스 없음(12)'이 나는 경우가 있어 대소문자·버전 후보를 차례로 시도한다.
 COMPANY_APIS = [
@@ -129,15 +129,51 @@ def fetch_companies(key: str) -> list[dict]:
     return rows
 
 
+BIGCO_LAB_CODE = "21501"  # 업종구분코드: 21502 중소, 21503 벤처, 21504 중견기업부설연구소 → 21501 대기업부설연구소로 추정
+ANCHORS = ["삼성전자", "LG전자", "SK하이닉스", "현대자동차", "LG화학", "삼성SDI"]
+
+
+def _is_bigco_factory(rows: list[dict]):
+    """대기업 연구소 판별 함수를 만든다.
+    - 이름값 방식: 값에 '대기업'과 '연구'가 들어 있으면 대기업 연구소
+    - 코드 방식(병역일터 API는 업종·기업구분을 코드로 줌): 업종코드 2xxxx(전문연구요원)이면서
+      업종코드가 21501이거나, 기업구분코드가 기준 대기업(삼성전자 등)들의 기업구분코드와 같으면 대기업
+    """
+    def low(raw):
+        return {k.lower(): (v or "").strip() for k, v in raw.items()}
+    rs = [low(r) for r in rows]
+    eopjong = lambda r: _pick(r, "eopjonggbcd", "eopjong", "upjong", prefer_nm=False)
+    gyumo = lambda r: _pick(r, "gegyumocd", "gyumo", prefer_nm=False)
+    research = [r for r in rs if eopjong(r).startswith("2")]
+    anchor_codes = [gyumo(r) for r in research
+                    if gyumo(r) and any(norm(_pick(r, "eopchenm", "eopche")).startswith(norm(a)) for a in ANCHORS)]
+    from collections import Counter
+    big_code = Counter(anchor_codes).most_common(1)[0][0] if len(anchor_codes) >= 2 else None
+    if rs:
+        print("  [확인용] 업종코드 분포(전문연):", Counter(eopjong(r) for r in research).most_common(8))
+        print("  [확인용] 기업구분코드 분포(전문연):", Counter(gyumo(r) for r in research).most_common(8),
+              "| 기준 대기업 코드:", anchor_codes, "→", big_code)
+
+    def is_big(r: dict) -> bool:
+        values = " ".join(r.values())
+        if "대기업" in values and "연구" in values:
+            return True
+        code = eopjong(r)
+        if not code.startswith("2"):
+            return False
+        return code == BIGCO_LAB_CODE or (big_code is not None and gyumo(r) == big_code)
+    return is_big
+
+
 def pick_bigco_labs(rows: list[dict], groups: list[dict]) -> list[dict]:
-    """응답 필드명이 문서에 없어서, 값에 '대기업'과 '연구'가 들어간 행을 고르는 방식으로 견고하게 처리한다."""
+    """응답 필드명·코드표가 문서에 없어서 이름값과 코드 두 방식으로 대기업 연구소를 고른다."""
     if rows:
         print("  [확인용] 지정업체 응답 필드:", sorted(rows[0].keys()))
+    is_big = _is_bigco_factory(rows)
     out = []
     for raw in rows:
         r = {k.lower(): (v or "").strip() for k, v in raw.items()}
-        values = " ".join(r.values())
-        if "대기업" not in values or "연구" not in values:
+        if not is_big(r):
             continue
         category = next((v for v in r.values() if re.fullmatch(r"\S*대기업\S*연구\S*", v)), "")
         name = _pick(r, "eopchenm", "eopche", "company", "bjeopche")
@@ -150,10 +186,10 @@ def pick_bigco_labs(rows: list[dict], groups: list[dict]) -> list[dict]:
         out.append({
             "name": html.unescape(name),
             "group": g["name"] if g else "",
-            "location": _pick(r, "juso", "addr", "sojaeji", "sido", prefer_nm=False),
-            "year": re.sub(r"\D", "", _pick(r, "seonjeong", "yeondo", "year", prefer_nm=False))[:4],
+            "location": _pick(r, "eopcheaddr", "juso", "addr", "sojaeji", "sido", prefer_nm=False),
+            "year": re.sub(r"\D", "", _pick(r, "seonjeongyy", "seonjeong", "yeondo", "year", prefer_nm=False))[:4],
             "recruiting": bool(re.search(r"모집|^y$", _pick(r, "chaeyong", "cy", prefer_nm=False), re.I)),
-            "homepage": _pick(r, "hmpg", "homepage", prefer_nm=False),
+            "homepage": _homepage(_pick(r, "hmpgaddr", "hmpg", "homepage", prefer_nm=False)),
             "category": category or _pick(r, "eopjong", "upjong"),
         })
     if out:
@@ -286,7 +322,10 @@ def main() -> int:
             print(f"대기업 연구소 {len(labs)}곳")
         except Exception as e:
             msg = str(e)
-            if any(s in msg for s in ("SERVICE_KEY", "PERMISSION", "인증키", "SERVICE ERROR", "HTTP 401", "HTTP 403")):
+            if "주소를 찾지 못했" in msg:
+                msg = ("병무청 지정업체 API가 지금 '서비스 없음' 응답을 주고 있어서 대기업 연구소 목록을 아직 받지 못했어요. "
+                       "공공데이터포털에서 이 API 활용신청을 마친 뒤에도 같으면 API 주소가 바뀐 것이라 확인이 필요해요.")
+            elif any(s in msg for s in ("SERVICE_KEY", "PERMISSION", "인증키", "SERVICE ERROR", "HTTP 401", "HTTP 403")):
                 msg = ("공공데이터포털에서 '병무청_전문연구/산업기능요원 지정업체 정보' API 활용신청이 필요해요. "
                        "(기존 인증키 그대로 쓰고 활용신청만 추가) — " + msg)
             print("지정업체 수집 실패:", msg)
