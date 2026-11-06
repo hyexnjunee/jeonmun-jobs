@@ -1,0 +1,90 @@
+{
+ "generated_at": "2026-11-06T13:45:19+09:00",
+ "companies_updated_at": "",
+ "companies_status": "HTTP 400: <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<OpenAPI_ServiceResponse>\n<cmmMsgHeader>\n  <errMsg>NO_OPENAPI_SERVICE_ERROR</errMsg>\n  <returnAuthMsg>해당 오픈API 서비스가 없거나 폐기됨</returnAuthMsg>\n  <returnReasonCode>12</returnReasonCode>\n</cmmMsgHeader>\n</OpenAPI_ServiceResponse>\n",
+ "companies": [],
+ "jobs_status": "사람인 API 키(SARAMIN_KEY)가 등록되지 않아 대기업 공고 검색을 건너뛰었어요.",
+ "jobs": [],
+ "groups": [
+  {
+   "name": "삼성",
+   "url": "https://www.samsungcareers.com"
+  },
+  {
+   "name": "LG",
+   "url": "https://careers.lg.com"
+  },
+  {
+   "name": "SK",
+   "url": "https://www.skcareers.com"
+  },
+  {
+   "name": "현대자동차그룹",
+   "url": "https://talent.hyundai.com"
+  },
+  {
+   "name": "HD현대",
+   "url": ""
+  },
+  {
+   "name": "포스코",
+   "url": ""
+  },
+  {
+   "name": "한화",
+   "url": "https://www.hanwhain.com"
+  },
+  {
+   "name": "CJ",
+   "url": "https://recruit.cj.net"
+  },
+  {
+   "name": "롯데",
+   "url": ""
+  },
+  {
+   "name": "GS",
+   "url": ""
+  },
+  {
+   "name": "두산",
+   "url": ""
+  },
+  {
+   "name": "LS",
+   "url": ""
+  },
+  {
+   "name": "네이버",
+   "url": "https://recruit.navercorp.com"
+  },
+  {
+   "name": "카카오",
+   "url": "https://careers.kakao.com"
+  },
+  {
+   "name": "쿠팡",
+   "url": "https://www.coupang.jobs"
+  },
+  {
+   "name": "KT",
+   "url": "https://recruit.kt.com"
+  },
+  {
+   "name": "HMM",
+   "url": ""
+  },
+  {
+   "name": "대한항공",
+   "url": ""
+  },
+  {
+   "name": "효성",
+   "url": ""
+  },
+  {
+   "name": "코오롱",
+   "url": ""
+  }
+ ]
+}
