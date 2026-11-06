@@ -278,8 +278,12 @@ def match_bigco(jobs: list[dict], labs: list[dict], groups: list[dict]) -> list[
         n = norm(j["company"])
         lab = next((l for ln, l in lab_norms if len(n) >= 2 and (ln.startswith(n) or n.startswith(ln))), None)
         g = group_of(j["company"], groups)
+        # 지정 연구소 목록이 있으면 실제로 편입이 가능한(지정된) 회사 공고만. 목록이 없을 때만 그룹명으로 추정.
+        if labs and not lab:
+            continue
         if not lab and not g:
             continue
+        j["unverified"] = not lab
         j["lab"] = lab["name"] if lab else ""
         j["group"] = (lab or {}).get("group") or (g["name"] if g else "")
         out.append(j)

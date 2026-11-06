@@ -292,7 +292,7 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
  </div>
 
  <div id="view-big" class="wrap" hidden>
-  <p class="big-intro">대기업은 현역 배정인원이 없어서 병역일터에 공고를 거의 올리지 않아요. 4급 보충역은 대기업 연구소에도 전문연구요원으로 신규편입할 수 있으니, 일반 채용에 지원한 뒤 회사에 보충역 편입이 가능한지 확인하세요.</p>
+  <p class="big-intro">4급 보충역은 대기업 연구소에도 전문연구요원으로 신규편입할 수 있지만, 그 연구소가 <b>병역지정업체</b>여야 해요. 지금 지정된 대기업 연구소는 아래 목록이 전부라서, 목록에 없는 대기업(삼성·LG·SK 본사 연구소 등)은 합격해도 전문연 편입이 안 돼요.</p>
 
   <section aria-labelledby="bj-title">
     <div class="sec-head">
@@ -308,7 +308,7 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
       <h2 id="bl-title">전문연구요원 지정 대기업 연구소</h2>
       <span class="sec-meta" id="bl-meta"></span>
     </div>
-    <p class="sec-desc">병무청이 전문연구요원 병역지정업체로 선정한 대기업 연구소예요. 여기 없는 곳은 편입이 안 되니 지원 전에 확인하세요.</p>
+    <p class="sec-desc">병무청 지정업체 정보에서 기업구분이 대기업인 전문연구요원 지정 연구소예요. 지정은 매년 바뀌니 6일마다 새로 받아요.</p>
     <div id="bl-notice"></div>
     <label class="search lab-search"><span class="sr-only">연구소 검색</span><input id="lab-q" type="search" placeholder="회사명, 연구소명, 지역으로 찾기" autocomplete="off"></label>
     <div id="bl-groups"></div>
@@ -654,7 +654,7 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
       $("bj-notice").innerHTML = notice(B.jobs_status + " 사람인 API 키를 발급받아 저장소 Secret에 SARAMIN_KEY로 등록하면, '" + kws.join(", ") + "' 키워드로 대기업 공고를 찾아 여기에 보여줘요.");
       $("bj-list").innerHTML = "";
     } else {
-      $("bj-notice").innerHTML = '<p class="sec-desc">사람인에서 ' + esc(kws.join(", ")) + " 키워드로 찾은 공고 중 대기업 공고만 골랐어요. 전문연 편입이 되는지는 회사에 꼭 확인하세요.</p>";
+      $("bj-notice").innerHTML = '<p class="sec-desc">사람인에서 ' + esc(kws.join(", ")) + " 키워드로 찾은 공고 중 아래 지정 대기업 연구소가 있는 회사 공고만 골랐어요. 지원 부서가 그 연구소인지, 전문연 편입이 되는지 회사에 꼭 확인하세요.</p>";
       $("bj-list").innerHTML = bigJobs.length ? bigJobs.map(bigJobHtml).join("")
         : '<li class="empty-state"><p>지금은 키워드에 맞는 대기업 공고가 없어요. 3시간마다 다시 찾아요.</p></li>';
     }
@@ -703,8 +703,8 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
         '<ul class="labs">' + groups[g].map(function (l) {
           var badges = (l.recruiting || mmaCos.indexOf(l.name) >= 0 ? '<span class="pill">병역일터 공고 중</span>' : "") +
             (jobCount[l.name] ? '<span class="pill">사람인 공고 ' + jobCount[l.name] + "건</span>" : "");
-          var link = url || l.homepage || searchUrl(l.name.replace(/\s.*$/, ""));
-          var label = url ? "채용 사이트" : l.homepage ? "홈페이지" : "채용 검색";
+          var link = l.homepage || url || searchUrl(l.name.replace(/\s.*$/, ""));
+          var label = l.homepage ? "홈페이지" : url ? "그룹 채용 사이트" : "채용 검색";
           return '<li class="lab"><div><div class="nm">' + esc(l.name) + '</div><div class="sub">' +
             esc([l.location, l.year ? l.year + "년 지정" : ""].filter(Boolean).join(", ")) + "</div></div>" +
             '<div class="acts">' + badges + '<a href="' + esc(link) + '" target="_blank" rel="noopener">' + label + "</a></div></li>";
