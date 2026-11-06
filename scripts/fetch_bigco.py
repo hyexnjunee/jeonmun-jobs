@@ -30,7 +30,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fetch_jobs import KST, SITE, parse_page, write_json  # noqa: E402
 
-COMPANY_API = "https://apis.data.go.kr/1300000/jjEopChe/list2"
+# 문서상 주소는 첫 번째지만 '서비스 없음(12)'이 나는 경우가 있어 대소문자·버전 후보를 차례로 시도한다.
+COMPANY_APIS = [
+    "https://apis.data.go.kr/1300000/jjEopChe/list2",
+    "https://apis.data.go.kr/1300000/JjEopChe/list2",
+    "https://apis.data.go.kr/1300000/jjEopChe/list",
+    "https://apis.data.go.kr/1300000/JjEopChe/list",
+    "https://apis.data.go.kr/1300000/JJEopChe/list2",
+]
 SARAMIN_API = "https://oapi.saramin.co.kr/job-search"
 OUT = SITE / "data" / "bigco.json"
 COMPANY_REFRESH_DAYS = 6
@@ -44,7 +51,7 @@ def http_get(url: str, headers: dict | None = None, retries: int = 3) -> str:
             with urllib.request.urlopen(req, timeout=60) as res:
                 return res.read().decode("utf-8", errors="replace")
         except urllib.error.HTTPError as e:  # 4xx는 재시도해도 같으니 바로 올린다
-            body = e.read().decode("utf-8", errors="replace")[:300]
+            body = e.read().decode("utf-8", errors="replace")[:3000]
             if 400 <= e.code < 500:
                 raise RuntimeError(f"HTTP {e.code}: {body}")
             last = e
@@ -88,12 +95,32 @@ def _pick(row: dict, *needles: str, prefer_nm: bool = True) -> str:
     return ""
 
 
+def _company_page(key: str, page: int, base: str | None = None) -> tuple[str, str]:
+    q = urllib.parse.urlencode({"serviceKey": key, "numOfRows": 1000, "pageNo": page})
+    if base:
+        return base, http_get(f"{base}?{q}")
+    errors = []
+    for cand in COMPANY_APIS:
+        try:
+            text = http_get(f"{cand}?{q}", retries=1)
+        except RuntimeError as e:
+            text = str(e)
+        if "NO_OPENAPI_SERVICE" in text or "<returnReasonCode>12<" in text:
+            errors.append(cand.rsplit("/1300000/", 1)[1])
+            print(f"  {cand} → 서비스 없음(12)")
+            continue
+        print(f"  지정업체 API 주소: {cand}")
+        return cand, text.split(": ", 1)[1] if text.startswith("HTTP ") else text
+    raise RuntimeError("지정업체 API 주소를 찾지 못했어요 (모두 '서비스 없음' 응답): " + ", ".join(errors))
+
+
 def fetch_companies(key: str) -> list[dict]:
     key = urllib.parse.unquote(key.strip())
     rows: list[dict] = []
+    base = None
     for page in range(1, 60):
-        q = urllib.parse.urlencode({"serviceKey": key, "numOfRows": 1000, "pageNo": page})
-        items, total = parse_page(http_get(f"{COMPANY_API}?{q}"))
+        base, text = _company_page(key, page, base)
+        items, total = parse_page(text)
         rows.extend(items)
         print(f"  지정업체 page {page}: {len(items)}건 (누적 {len(rows)} / 전체 {total})")
         if not items or len(items) < 1000 or (total is not None and len(rows) >= total):
