@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-11-06T19:58:32+09:00",
+ "generated_at": "2026-11-07T04:28:11+09:00",
  "source": "병무청 병역일터 채용공고 (공공데이터포털 오픈API)",
- "count": 47,
+ "count": 46,
  "jobs": [
   {
    "id": "2000001553902",
@@ -1619,42 +1619,6 @@
    "first_seen": "2026-03-16",
    "field": [],
    "keywords": []
-  },
-  {
-   "id": "2000001294689",
-   "title": "AI 분야 전문연구요원 채용",
-   "company": "(주)펀진 기업부설연구소",
-   "industry": "중소기업부설연구소",
-   "location": "서울특별시 성동구 성수동2가",
-   "sido": "서울특별시",
-   "service": "현역",
-   "education": "석사",
-   "major": "공학계",
-   "career": "신입",
-   "salary": "3800~4000만원",
-   "salary_min": 3800,
-   "duty": "ML/DL 모델 개발 엔지니어",
-   "welfare": [
-    "국민연금",
-    "고용보험",
-    "산재보험",
-    "건강보험",
-    "연차",
-    "인센티브제도"
-   ],
-   "apply_method": "병역일터 이력서",
-   "headcount": "1명",
-   "deadline": "2026-11-06",
-   "always_open": false,
-   "posted": "2026-03-06",
-   "updated": "2026-10-08",
-   "homepage": "https://www.funzin.co.kr",
-   "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001294689",
-   "first_seen": "2026-03-06",
-   "field": [],
-   "keywords": [
-    "AI"
-   ]
   },
   {
    "id": "2000001279721",
