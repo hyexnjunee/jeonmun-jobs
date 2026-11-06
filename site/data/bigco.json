@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-11-06T14:08:34+09:00",
+ "generated_at": "2026-11-06T14:10:39+09:00",
  "companies_updated_at": "2026-11-06T14:06:28+09:00",
  "companies_status": "ok",
  "companies": [
   {
    "name": "쎄트렉아이우주기술연구소",
-   "group": "",
+   "group": "한화",
    "location": "대전광역시 유성구 문지동 대전광역시 유성구 엑스포로  441 A1(문지동) 7층",
    "year": "2000",
    "recruiting": false,
@@ -14,7 +14,7 @@
   },
   {
    "name": "토스뱅크(주) 기업부설연구소",
-   "group": "",
+   "group": "토스",
    "location": "서울특별시 강남구 역삼동 서울특별시 강남구 테헤란로  145 (더피나클 역삼) 6층 (역삼동)",
    "year": "2022",
    "recruiting": false,
@@ -23,7 +23,7 @@
   },
   {
    "name": "포티투닷(주) 기업부설연구소",
-   "group": "",
+   "group": "현대자동차그룹",
    "location": "경기도 성남시 수정구 시흥동 경기도 성남시 수정구 창업로40번길 20 A동 6층(시흥동)",
    "year": "2020",
    "recruiting": false,
