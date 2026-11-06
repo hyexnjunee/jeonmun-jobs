@@ -1,17 +1,8 @@
 {
- "generated_at": "2026-11-06T14:10:39+09:00",
- "companies_updated_at": "2026-11-06T14:06:28+09:00",
+ "generated_at": "2026-11-06T14:24:03+09:00",
+ "companies_updated_at": "2026-11-06T14:24:03+09:00",
  "companies_status": "ok",
  "companies": [
-  {
-   "name": "쎄트렉아이우주기술연구소",
-   "group": "한화",
-   "location": "대전광역시 유성구 문지동 대전광역시 유성구 엑스포로  441 A1(문지동) 7층",
-   "year": "2000",
-   "recruiting": false,
-   "homepage": "https://www.satreci.com",
-   "category": "21501"
-  },
   {
    "name": "토스뱅크(주) 기업부설연구소",
    "group": "토스",
@@ -19,6 +10,15 @@
    "year": "2022",
    "recruiting": false,
    "homepage": "https://tossbank.com",
+   "category": "21501"
+  },
+  {
+   "name": "쎄트렉아이우주기술연구소",
+   "group": "한화",
+   "location": "대전광역시 유성구 문지동 대전광역시 유성구 엑스포로  441 A1(문지동) 7층",
+   "year": "2000",
+   "recruiting": false,
+   "homepage": "https://www.satreci.com",
    "category": "21501"
   },
   {
