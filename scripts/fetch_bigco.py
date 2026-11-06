@@ -32,6 +32,7 @@ from fetch_jobs import KST, SITE, _homepage, parse_page, write_json  # noqa: E40
 
 # 문서상 주소는 첫 번째지만 '서비스 없음(12)'이 나는 경우가 있어 대소문자·버전 후보를 차례로 시도한다.
 COMPANY_APIS = [
+    "https://apis.data.go.kr/1300000/jjEopChe/list2/getjjEopChe",  # 영문 상세페이지의 Requested Link
     "https://apis.data.go.kr/1300000/jjEopChe/list2",
     "https://apis.data.go.kr/1300000/JjEopChe/list2",
     "https://apis.data.go.kr/1300000/jjEopChe/list",
