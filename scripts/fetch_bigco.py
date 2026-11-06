@@ -215,7 +215,7 @@ def pick_bigco_labs(rows: list[dict], groups: list[dict]) -> list[dict]:
 # 로그로 확인한 업종구분코드 (전문연구요원 = 2로 시작)
 EOPJONG_LABELS = {
     "21101": "과학기술원", "21102": "과학기술원 부설연구소", "21103": "기초과학연구기관",
-    "21201": "정부출연연구기관", "21301": "대학 선도연구센터", "21401": "병원·재단 연구소",
+    "21201": "정부출연연구기관", "21301": "대학 선도연구센터", "21401": "기타 비영리 연구기관",
     "21501": "대기업부설연구소", "21502": "중소기업부설연구소", "21503": "벤처기업부설연구소",
     "21504": "중견기업부설연구소", "23101": "자연계 대학원", "23201": "대학부설연구소", "24101": "방위산업연구기관",
 }
@@ -244,6 +244,15 @@ def export_all_labs(rows: list[dict], groups: list[dict]) -> int:
             "homepage": _homepage(_pick(r, "hmpgaddr", "hmpg", "homepage", prefer_nm=False)),
             "group": g["name"] if g else "",
         })
+    # 확인용: 업종 무관(산업기능요원 포함) 항만·해운·물류 관련 지정업체
+    port = re.compile(r"항만|해운|물류|로지스|로지텍|터미널|컨테이너|쉬핑|글로비스|판토스|소프트뱅크|싸이버|사이버로|부산신항|PNIT|BNCT|HPNT", re.I)
+    pm = []
+    for raw in rows:
+        r = {k.lower(): (v or "").strip() for k, v in raw.items()}
+        nm = _pick(r, "eopchenm", "eopche")
+        if port.search(nm):
+            pm.append(f"{nm}({_pick(r, 'eopjonggbcd', prefer_nm=False)}/{_pick(r, 'gegyumocd', prefer_nm=False)}/{' '.join(_pick(r, 'eopcheaddr', prefer_nm=False).split()[:2])})")
+    print(f"  [확인용] 항만·해운·물류 관련 지정업체(전체 업종) {len(pm)}곳:", "; ".join(pm[:60]))
     out = sorted({o["name"]: o for o in out}.values(), key=lambda o: o["name"])
     write_json(LABS_OUT, {"generated_at": datetime.now(KST).isoformat(timespec="seconds"), "count": len(out), "labs": out})
     return len(out)
