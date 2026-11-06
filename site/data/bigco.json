@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-11-06T13:47:12+09:00",
+ "generated_at": "2026-11-06T13:49:51+09:00",
  "companies_updated_at": "",
- "companies_status": "지정업체 API 주소를 찾지 못했어요 (모두 '서비스 없음' 응답): jjEopChe/list2, JjEopChe/list2, jjEopChe/list, JjEopChe/list, JJEopChe/list2",
+ "companies_status": "병무청 지정업체 API가 지금 '서비스 없음' 응답을 주고 있어서 대기업 연구소 목록을 아직 받지 못했어요. 공공데이터포털에서 이 API 활용신청을 마친 뒤에도 같으면 API 주소가 바뀐 것이라 확인이 필요해요.",
  "companies": [],
  "jobs_status": "사람인 API 키(SARAMIN_KEY)가 등록되지 않아 대기업 공고 검색을 건너뛰었어요.",
  "jobs": [],
