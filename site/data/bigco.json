@@ -1,8 +1,36 @@
 {
- "generated_at": "2026-11-06T13:49:51+09:00",
- "companies_updated_at": "",
- "companies_status": "병무청 지정업체 API가 지금 '서비스 없음' 응답을 주고 있어서 대기업 연구소 목록을 아직 받지 못했어요. 공공데이터포털에서 이 API 활용신청을 마친 뒤에도 같으면 API 주소가 바뀐 것이라 확인이 필요해요.",
- "companies": [],
+ "generated_at": "2026-11-06T13:58:50+09:00",
+ "companies_updated_at": "2026-11-06T13:58:50+09:00",
+ "companies_status": "ok",
+ "companies": [
+  {
+   "name": "쎄트렉아이우주기술연구소",
+   "group": "",
+   "location": "대전광역시 유성구 문지동 대전광역시 유성구 엑스포로  441 A1(문지동) 7층",
+   "year": "2000",
+   "recruiting": false,
+   "homepage": "https://www.satreci.com",
+   "category": "21501"
+  },
+  {
+   "name": "토스뱅크(주) 기업부설연구소",
+   "group": "",
+   "location": "서울특별시 강남구 역삼동 서울특별시 강남구 테헤란로  145 (더피나클 역삼) 6층 (역삼동)",
+   "year": "2022",
+   "recruiting": false,
+   "homepage": "https://tossbank.com",
+   "category": "21501"
+  },
+  {
+   "name": "포티투닷(주) 기업부설연구소",
+   "group": "",
+   "location": "경기도 성남시 수정구 시흥동 경기도 성남시 수정구 창업로40번길 20 A동 6층(시흥동)",
+   "year": "2020",
+   "recruiting": false,
+   "homepage": "https://42dot.ai",
+   "category": "21501"
+  }
+ ],
  "jobs_status": "사람인 API 키(SARAMIN_KEY)가 등록되지 않아 대기업 공고 검색을 건너뛰었어요.",
  "jobs": [],
  "groups": [
