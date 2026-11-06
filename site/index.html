@@ -43,6 +43,7 @@ button, input, select { font: inherit; color: inherit; }
 mark { background: linear-gradient(transparent 38%, var(--marker) 38%, var(--marker) 92%, transparent 92%); color: inherit; padding: 0 1px; }
 mark.f { background: linear-gradient(transparent 30%, var(--field-mk) 30%, var(--field-mk) 94%, transparent 94%); font-weight: 600; }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+[hidden] { display: none !important; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ---------- 머리말 */
@@ -154,6 +155,37 @@ details.more dd { margin: 0; }
 .empty-state { padding: 48px 24px; text-align: center; color: var(--ink-2); }
 .empty-state p { margin: 0 0 10px; }
 .more-btn { display: block; margin: 16px auto 0; height: 42px; padding: 0 22px; border: 1px solid var(--ink); background: var(--sheet); border-radius: var(--radius-m); cursor: pointer; }
+/* ---------- 탭 */
+.tabs { display: flex; gap: 4px; margin-top: 24px; border-bottom: 1px solid var(--rule); }
+.tab { padding: 10px 14px 9px; color: var(--ink-2); text-decoration: none; font-weight: 600; border-bottom: 3px solid transparent; margin-bottom: -1px; }
+.tab small { font-weight: 500; color: var(--ink-3); margin-left: 2px; }
+.tab[aria-current="page"] { color: var(--ink); border-bottom-color: var(--ink); }
+.tab:hover { color: var(--ink); }
+
+/* ---------- 대기업 보기 */
+.big-intro { margin: 22px 0 0; color: var(--ink-2); max-width: 72ch; }
+#view-big section { margin-top: 30px; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.sec-head h2 { font-size: 19px; margin: 0; }
+.sec-meta { font-size: 13px; color: var(--ink-3); }
+.sec-desc { margin: 6px 0 0; color: var(--ink-2); font-size: 14px; max-width: 72ch; }
+#view-big .list { margin-top: 12px; }
+#view-big .notice { margin-top: 12px; }
+.lab-search { display: block; max-width: 420px; margin-top: 14px; }
+.grp { margin-top: 16px; background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius-m); }
+.grp-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; padding: 12px 18px; border-bottom: 1px solid var(--rule-2); }
+.grp-head h3 { margin: 0; font-size: 16px; }
+.grp-head span { font-size: 13px; color: var(--ink-3); }
+.grp-head a { font-size: 14px; margin-left: auto; }
+.labs { list-style: none; margin: 0; padding: 0; }
+.lab { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 10px 18px; border-top: 1px solid var(--rule-2); font-size: 14px; }
+.lab:first-child { border-top: 0; }
+.lab .nm { font-weight: 600; }
+.lab .sub { color: var(--ink-3); font-size: 13px; }
+.lab .acts { display: flex; gap: 12px; align-items: center; white-space: nowrap; }
+.pill { font-size: 12px; font-weight: 600; border-radius: 3px; padding: 0 6px; background: var(--teal-soft); color: var(--teal); }
+.grptag { font-size: 12px; color: var(--ink-2); border: 1px solid var(--rule); border-radius: 3px; padding: 0 6px; }
+
 footer { margin: 40px 0 48px; font-size: 13px; color: var(--ink-3); }
 footer p { margin: 0 0 4px; max-width: 80ch; }
 
@@ -171,6 +203,8 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
   .side { grid-column: 2; }
   .due .d { font-size: 19px; }
   .controls { position: static; }
+  .lab { grid-template-columns: 1fr; }
+  .grp-head a { margin-left: 0; }
 }
 @media (max-height: 899px) {
   .controls { position: static; }
@@ -188,7 +222,13 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
   <div id="notices"></div>
 </header>
 
+<nav class="wrap tabs" aria-label="보기 전환">
+  <a class="tab" id="tab-mma" href="#">병역일터 공고 <small id="tab-mma-n"></small></a>
+  <a class="tab" id="tab-big" href="#bigco">대기업 <small id="tab-big-n"></small></a>
+</nav>
+
 <main>
+ <div id="view-mma">
   <section class="wrap" aria-labelledby="tl-title">
     <div class="timeline">
       <div class="timeline-head">
@@ -249,10 +289,35 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     <ul class="list" id="list"></ul>
     <button class="more-btn" id="more" hidden>공고 더 보기</button>
   </section>
+ </div>
+
+ <div id="view-big" class="wrap" hidden>
+  <p class="big-intro">대기업은 현역 배정인원이 없어서 병역일터에 공고를 거의 올리지 않아요. 4급 보충역은 대기업 연구소에도 전문연구요원으로 신규편입할 수 있으니, 일반 채용에 지원한 뒤 회사에 보충역 편입이 가능한지 확인하세요.</p>
+
+  <section aria-labelledby="bj-title">
+    <div class="sec-head">
+      <h2 id="bj-title">사람인에 올라온 대기업 공고</h2>
+      <span class="sec-meta" id="bj-meta"></span>
+    </div>
+    <div id="bj-notice"></div>
+    <ul class="list" id="bj-list"></ul>
+  </section>
+
+  <section aria-labelledby="bl-title">
+    <div class="sec-head">
+      <h2 id="bl-title">전문연구요원 지정 대기업 연구소</h2>
+      <span class="sec-meta" id="bl-meta"></span>
+    </div>
+    <p class="sec-desc">병무청이 전문연구요원 병역지정업체로 선정한 대기업 연구소예요. 여기 없는 곳은 편입이 안 되니 지원 전에 확인하세요.</p>
+    <div id="bl-notice"></div>
+    <label class="search lab-search"><span class="sr-only">연구소 검색</span><input id="lab-q" type="search" placeholder="회사명, 연구소명, 지역으로 찾기" autocomplete="off"></label>
+    <div id="bl-groups"></div>
+  </section>
+ </div>
 </main>
 
 <footer class="wrap">
-  <p>데이터 출처: 병무청 병역일터 채용공고 (공공데이터포털 오픈API). 공고 내용은 원문과 다를 수 있으니 지원 전에 병역일터에서 확인하세요.</p>
+  <p>데이터 출처: 병무청 병역일터 채용공고·지정업체 정보 (공공데이터포털 오픈API)<span id="saramin-credit">, 대기업 채용정보 제공 <a href="https://www.saramin.co.kr" target="_blank" rel="noopener">사람인</a></span>. 공고 내용은 원문과 다를 수 있으니 지원 전에 원문에서 확인하세요.</p>
   <p id="foot-gen"></p>
 </footer>
 
@@ -559,15 +624,106 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     $("field-input").value = fk.join(", ");
     $("kw-input").value = kws.join(", ");
     jobs.forEach(function (j) { j._field = kwOf(j, fieldMatchers); j._kw = kwOf(j, matchers); });
-    renderFacts(); refresh();
+    renderFacts(); refresh(); renderBig();
+  }
+
+  // ---------- 대기업 보기
+  var big = null, bigJobs = [];
+  var OTHER = "그 밖의 대기업";
+  function notice(msg, warn) { return '<div class="notice' + (warn ? " warn" : "") + '">' + esc(msg) + "</div>"; }
+  function groupUrl(name) { var g = ((big && big.groups) || []).filter(function (x) { return x.name === name; })[0]; return (g && g.url) || ""; }
+  function searchUrl(q) { return "https://www.google.com/search?q=" + encodeURIComponent(q + " 채용"); }
+  function renderBig() {
+    var B = big, ok = !!(B && B.jobs_status === "ok");
+    bigJobs = ((B && B.jobs) || []).filter(function (j) { return !j.deadline || j.deadline >= refDate; });
+    bigJobs.forEach(function (j) {
+      j._field = kwOf(j, fieldMatchers); j._kw = kwOf(j, matchers);
+      j._new = !!j.posted && diffDays(refDate, j.posted) < (config.new_days || 3);
+    });
+    bigJobs.sort(function (a, b) { return tier(b) - tier(a) || cmp(b.posted, a.posted); });
+    $("tab-mma-n").textContent = jobs.length;
+    $("tab-big-n").textContent = ok ? bigJobs.length : "";
+    $("saramin-credit").hidden = !(ok && bigJobs.length);
+    var kws = (config.bigco && config.bigco.search_keywords) || [];
+    $("bj-meta").textContent = B && B.generated_at ? "업데이트 " + longDate(B.generated_at) : "";
+    $("bj-list").hidden = !ok;
+    if (!B) {
+      $("bj-notice").innerHTML = notice("대기업 정보가 아직 없어요. 다음 자동 업데이트 뒤에 채워져요.");
+      $("bj-list").innerHTML = "";
+    } else if (!ok) {
+      $("bj-notice").innerHTML = notice(B.jobs_status + " 사람인 API 키를 발급받아 저장소 Secret에 SARAMIN_KEY로 등록하면, '" + kws.join(", ") + "' 키워드로 대기업 공고를 찾아 여기에 보여줘요.");
+      $("bj-list").innerHTML = "";
+    } else {
+      $("bj-notice").innerHTML = '<p class="sec-desc">사람인에서 ' + esc(kws.join(", ")) + " 키워드로 찾은 공고 중 대기업 공고만 골랐어요. 전문연 편입이 되는지는 회사에 꼭 확인하세요.</p>";
+      $("bj-list").innerHTML = bigJobs.length ? bigJobs.map(bigJobHtml).join("")
+        : '<li class="empty-state"><p>지금은 키워드에 맞는 대기업 공고가 없어요. 3시간마다 다시 찾아요.</p></li>';
+    }
+    renderLabs();
+  }
+  function bigJobHtml(j) {
+    var tags = [j.experience, j.education, j.job_type].filter(Boolean).map(function (t) { return '<span class="tag">' + esc(t) + "</span>"; }).join("");
+    var gurl = groupUrl(j.group);
+    var due = j.deadline ? dueHtml({ deadline: j.deadline })
+      : '<div class="due open"><div class="d">' + (/상시/.test(j.close_type || "") ? "상시" : "채용시") + "</div></div>";
+    return '<li class="job' + (j._field.length ? " field" : "") + '">' + due +
+      '<div class="main"><div class="co"><span>' + hl(j.company) + "</span>" +
+      (j.group ? '<span class="grptag">' + esc(j.group) + "</span>" : "") +
+      (j._field.length ? '<span class="fieldtag">' + esc(fieldLabel()) + "</span>" : "") +
+      (j._new ? '<span class="new">새 공고</span>' : "") + "</div>" +
+      '<h3><a href="' + esc(j.url) + '" target="_blank" rel="noopener">' + hl(j.title) + "</a></h3>" +
+      (j.duty ? '<p class="duty">' + hl(j.duty) + "</p>" : "") +
+      (tags ? '<div class="tags">' + tags + "</div>" : "") +
+      (j.lab ? '<p class="sec-meta">지정 연구소: ' + esc(j.lab) + "</p>" : "") + "</div>" +
+      '<div class="side"><span class="pay">' + esc(j.salary || "급여 정보 없음") + "</span><span>" + esc(j.location || "") + "</span>" +
+      '<div class="actions"><a href="' + esc(j.url) + '" target="_blank" rel="noopener">사람인에서 보기</a>' +
+      (gurl ? '<a href="' + esc(gurl) + '" target="_blank" rel="noopener">' + esc(j.group) + " 채용 사이트</a>" : "") + "</div></div></li>";
+  }
+  function renderLabs() {
+    var B = big, labs = (B && B.companies) || [];
+    $("bl-meta").textContent = B && B.companies_updated_at && labs.length ? labs.length + "곳, " + longDate(B.companies_updated_at) + " 기준" : "";
+    if (!labs.length) {
+      $("bl-notice").innerHTML = notice((B && B.companies_status) || "지정 대기업 연구소 목록이 아직 없어요. 다음 자동 업데이트 뒤에 채워져요.");
+      $("bl-groups").innerHTML = ""; $("lab-q").parentNode.hidden = true;
+      return;
+    }
+    $("bl-notice").innerHTML = B.companies_status && B.companies_status !== "ok" ? notice("최근 갱신 실패: " + B.companies_status + " (아래는 이전에 받은 목록)") : "";
+    $("lab-q").parentNode.hidden = false;
+    var q = ($("lab-q").value || "").trim().toLowerCase();
+    var mmaCos = jobs.map(function (j) { return j.company; });
+    var jobCount = {};
+    bigJobs.forEach(function (j) { if (j.lab) jobCount[j.lab] = (jobCount[j.lab] || 0) + 1; });
+    var groups = {}, order = [];
+    labs.filter(function (l) { return !q || [l.name, l.location, l.group].join(" ").toLowerCase().indexOf(q) >= 0; })
+      .forEach(function (l) { var g = l.group || OTHER; if (!groups[g]) { groups[g] = []; order.push(g); } groups[g].push(l); });
+    order.sort(function (a, b) { return (a === OTHER) - (b === OTHER) || groups[b].length - groups[a].length; });
+    $("bl-groups").innerHTML = order.length ? order.map(function (g) {
+      var url = groupUrl(g);
+      return '<div class="grp"><div class="grp-head"><h3>' + esc(g) + "</h3><span>" + groups[g].length + "곳</span>" +
+        (url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(g) + " 채용 사이트</a>" : "") + "</div>" +
+        '<ul class="labs">' + groups[g].map(function (l) {
+          var badges = (l.recruiting || mmaCos.indexOf(l.name) >= 0 ? '<span class="pill">병역일터 공고 중</span>' : "") +
+            (jobCount[l.name] ? '<span class="pill">사람인 공고 ' + jobCount[l.name] + "건</span>" : "");
+          var link = url || l.homepage || searchUrl(l.name.replace(/\s.*$/, ""));
+          var label = url ? "채용 사이트" : l.homepage ? "홈페이지" : "채용 검색";
+          return '<li class="lab"><div><div class="nm">' + esc(l.name) + '</div><div class="sub">' +
+            esc([l.location, l.year ? l.year + "년 지정" : ""].filter(Boolean).join(", ")) + "</div></div>" +
+            '<div class="acts">' + badges + '<a href="' + esc(link) + '" target="_blank" rel="noopener">' + label + "</a></div></li>";
+        }).join("") + "</ul></div>";
+    }).join("") : '<p class="sec-desc">검색어에 맞는 연구소가 없어요.</p>';
+  }
+  function route() {
+    var b = location.hash === "#bigco";
+    $("view-mma").hidden = b; $("view-big").hidden = !b;
+    $("tab-mma").setAttribute("aria-current", b ? "false" : "page");
+    $("tab-big").setAttribute("aria-current", b ? "page" : "false");
   }
   var TOGGLES = [["t-new", "onlyNew"], ["t-field", "onlyField"], ["t-kw", "onlyKw"], ["t-saved", "onlySaved"]];
   function fieldLabel() { return (config && config.field_label) || "내 분야"; }
   function tier(j) { return j._field.length ? 2 : j._kw.length ? 1 : 0; }
 
   // ---------- 시작
-  function start(cfg, d) {
-    config = cfg || {}; data = d || { jobs: [] };
+  function start(cfg, d, b) {
+    config = cfg || {}; data = d || { jobs: [] }; big = b || null;
     document.title = config.site_title || document.title;
     $("site-title").textContent = config.site_title || "전문연구요원 채용공고 모아보기";
     refDate = data.demo && data.demo.snapshot_date ? data.demo.snapshot_date : kstToday();
@@ -581,8 +737,11 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     // 예전 버전에서 저장한 관심 키워드는 내 분야 키워드와 나뉘기 전 목록이라 새 기본값을 쓴다
     if (!store.get(K_FIELD, null) && store.get(K_KW, null)) { kws = config.interest_keywords || []; try { localStorage.removeItem(K_KW); } catch (e) {} }
     bind();
+    window.addEventListener("hashchange", route);
+    $("lab-q").addEventListener("input", renderLabs);
     applyKeywords(fk, kws);
     renderSelects();
+    route();
   }
   function fail(msg) {
     $("facts").innerHTML = "";
@@ -590,12 +749,13 @@ footer p { margin: 0 0 4px; max-width: 80ch; }
     $("list").innerHTML = '<li class="empty-state"><p>공고 목록을 표시할 수 없어요.</p></li>';
   }
 
-  if (window.__EMBEDDED__) { start(window.__EMBEDDED__.config, window.__EMBEDDED__.data); return; }
+  if (window.__EMBEDDED__) { start(window.__EMBEDDED__.config, window.__EMBEDDED__.data, window.__EMBEDDED__.bigco); return; }
   var bust = "?t=" + Date.now();
   Promise.all([
     fetch("config.json" + bust).then(function (r) { if (!r.ok) throw new Error("config.json " + r.status); return r.json(); }),
-    fetch("data/jobs.json" + bust).then(function (r) { if (!r.ok) throw new Error("data/jobs.json " + r.status); return r.json(); })
-  ]).then(function (res) { start(res[0], res[1]); })
+    fetch("data/jobs.json" + bust).then(function (r) { if (!r.ok) throw new Error("data/jobs.json " + r.status); return r.json(); }),
+    fetch("data/bigco.json" + bust).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+  ]).then(function (res) { start(res[0], res[1], res[2]); })
     .catch(function (e) {
       fail(/jobs\.json 404/.test(e.message)
         ? "아직 수집한 공고가 없어요. 저장소 Settings → Secrets and variables → Actions에 DATA_GO_KR_KEY(공공데이터포털 인증키)를 등록한 뒤, Actions 탭에서 '공고 업데이트'를 실행하세요."

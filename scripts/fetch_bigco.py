@@ -1,0 +1,318 @@
+#!/usr/bin/env python3
+"""대기업 정보 수집: 전문연구요원 지정 대기업 연구소 목록 + 사람인 대기업 채용공고.
+
+대기업은 현역 배정이 없어 병역일터에 공고를 거의 올리지 않고, 4급 보충역은 대기업 연구소에
+신규편입이 가능하다. 그래서 두 가지를 모은다.
+
+1) 지정 대기업 연구소 목록 (병무청 '전문연구/산업기능요원 지정업체 정보' API, 6일에 한 번)
+   https://www.data.go.kr/data/3066759/openapi.do  → DATA_GO_KR_KEY 로 활용신청 필요
+2) 사람인에 올라온 대기업 공고 중 내 분야 키워드 검색 결과 (매 실행)
+   https://oapi.saramin.co.kr  → SARAMIN_KEY (사람인 API access-key) 필요, 없으면 건너뜀
+
+어느 쪽이든 키가 없거나 실패하면 그 부분만 상태 메시지를 남기고 나머지는 계속한다.
+결과: site/data/bigco.json
+"""
+from __future__ import annotations
+
+import argparse
+import html
+import json
+import os
+import re
+import sys
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+from datetime import datetime, timedelta
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from fetch_jobs import KST, SITE, parse_page, write_json  # noqa: E402
+
+COMPANY_API = "https://apis.data.go.kr/1300000/jjEopChe/list2"
+SARAMIN_API = "https://oapi.saramin.co.kr/job-search"
+OUT = SITE / "data" / "bigco.json"
+COMPANY_REFRESH_DAYS = 6
+
+
+def http_get(url: str, headers: dict | None = None, retries: int = 3) -> str:
+    req = urllib.request.Request(url, headers={"User-Agent": "jeonmun-jobs/1.0", **(headers or {})})
+    last: Exception | None = None
+    for attempt in range(retries):
+        try:
+            with urllib.request.urlopen(req, timeout=60) as res:
+                return res.read().decode("utf-8", errors="replace")
+        except urllib.error.HTTPError as e:  # 4xx는 재시도해도 같으니 바로 올린다
+            body = e.read().decode("utf-8", errors="replace")[:300]
+            if 400 <= e.code < 500:
+                raise RuntimeError(f"HTTP {e.code}: {body}")
+            last = e
+        except Exception as e:
+            last = e
+        time.sleep(4 * (attempt + 1))
+    raise RuntimeError(f"요청 실패: {last}")
+
+
+# ---------------------------------------------------------------- 이름 정규화
+ALIASES = [("엘지", "lg"), ("에스케이", "sk"), ("씨제이", "cj"), ("케이티", "kt"), ("지에스", "gs"), ("엘에스", "ls"), ("에이치디", "hd")]
+
+
+def norm(name: str) -> str:
+    s = html.unescape(name or "").lower()
+    s = re.sub(r"\(주\)|㈜|주식회사|\(유\)|유한회사|\(재\)|재단법인|\(사\)|사단법인", "", s)
+    for ko, en in ALIASES:
+        if s.startswith(ko) or re.match(rf"^\W*{ko}", s):
+            s = s.replace(ko, en, 1)
+    return re.sub(r"[\s\W_]+", "", s)
+
+
+def group_of(name: str, groups: list[dict]) -> dict | None:
+    n = norm(name)
+    for g in groups:
+        for m in g.get("match", []):
+            if n.startswith(norm(m)):
+                return g
+    return None
+
+
+# ---------------------------------------------------------------- 1) 지정 대기업 연구소
+def _pick(row: dict, *needles: str, prefer_nm: bool = True) -> str:
+    """needles를 앞에서부터 차례로 시도한다. 같은 needle에 걸린 키가 여럿이면 ...nm(이름) 키를 우선."""
+    for nd in needles:
+        keys = [k for k in row if nd in k and row[k]]
+        if prefer_nm:
+            keys.sort(key=lambda k: (not k.endswith("nm"), len(k)))
+        if keys:
+            return row[keys[0]]
+    return ""
+
+
+def fetch_companies(key: str) -> list[dict]:
+    key = urllib.parse.unquote(key.strip())
+    rows: list[dict] = []
+    for page in range(1, 60):
+        q = urllib.parse.urlencode({"serviceKey": key, "numOfRows": 1000, "pageNo": page})
+        items, total = parse_page(http_get(f"{COMPANY_API}?{q}"))
+        rows.extend(items)
+        print(f"  지정업체 page {page}: {len(items)}건 (누적 {len(rows)} / 전체 {total})")
+        if not items or len(items) < 1000 or (total is not None and len(rows) >= total):
+            break
+        time.sleep(1)
+    return rows
+
+
+def pick_bigco_labs(rows: list[dict], groups: list[dict]) -> list[dict]:
+    """응답 필드명이 문서에 없어서, 값에 '대기업'과 '연구'가 들어간 행을 고르는 방식으로 견고하게 처리한다."""
+    if rows:
+        print("  [확인용] 지정업체 응답 필드:", sorted(rows[0].keys()))
+    out = []
+    for raw in rows:
+        r = {k.lower(): (v or "").strip() for k, v in raw.items()}
+        values = " ".join(r.values())
+        if "대기업" not in values or "연구" not in values:
+            continue
+        category = next((v for v in r.values() if re.fullmatch(r"\S*대기업\S*연구\S*", v)), "")
+        name = _pick(r, "eopchenm", "eopche", "company", "bjeopche")
+        if not name:  # 이름 키를 못 찾으면: 분류값이 아니면서 연구소/센터/(주)가 들어간 가장 긴 값
+            cands = [v for v in r.values() if v != category and re.search(r"연구|센터|\(주\)|주식회사", v)]
+            name = max(cands, key=len) if cands else ""
+        if not name:
+            continue
+        g = group_of(name, groups)
+        out.append({
+            "name": html.unescape(name),
+            "group": g["name"] if g else "",
+            "location": _pick(r, "juso", "addr", "sojaeji", "sido", prefer_nm=False),
+            "year": re.sub(r"\D", "", _pick(r, "seonjeong", "yeondo", "year", prefer_nm=False))[:4],
+            "recruiting": bool(re.search(r"모집|^y$", _pick(r, "chaeyong", "cy", prefer_nm=False), re.I)),
+            "homepage": _pick(r, "hmpg", "homepage", prefer_nm=False),
+            "category": category or _pick(r, "eopjong", "upjong"),
+        })
+    if out:
+        print("  [확인용] 대기업 연구소 예시:", json.dumps(out[0], ensure_ascii=False))
+    out = list({o["name"]: o for o in out}.values())
+    out.sort(key=lambda o: (o["group"] == "", o["group"], o["name"]))
+    return out
+
+
+# ---------------------------------------------------------------- 2) 사람인 대기업 공고
+def _g(d, *path, default=""):
+    for p in path:
+        if not isinstance(d, dict):
+            return default
+        d = d.get(p)
+    return default if d is None else d
+
+
+def _date(v) -> str:
+    if v in (None, "", 0, "0"):
+        return ""
+    s = str(v)
+    if s.isdigit() and len(s) >= 9:  # unix timestamp
+        return datetime.fromtimestamp(int(s), KST).strftime("%Y-%m-%d")
+    m = re.match(r"(\d{4})-?(\d{2})-?(\d{2})", s)
+    return f"{m.group(1)}-{m.group(2)}-{m.group(3)}" if m else ""
+
+
+def fetch_saramin(key: str, keywords: list[str]) -> list[dict]:
+    jobs: dict[str, dict] = {}
+    for kw in keywords:
+        q = urllib.parse.urlencode({"access-key": key, "keywords": kw, "count": 110, "sort": "pd",
+                                    "fields": "posting-date expiration-date"})
+        text = http_get(f"{SARAMIN_API}?{q}", headers={"Accept": "application/json"})
+        data = json.loads(text)
+        if "jobs" not in data:
+            raise RuntimeError(f"사람인 API 오류: {text[:300]}")
+        lst = _g(data, "jobs", "job", default=[]) or []
+        if isinstance(lst, dict):
+            lst = [lst]
+        print(f"  사람인 '{kw}': {len(lst)}건 (전체 {_g(data, 'jobs', 'total')})")
+        for j in lst:
+            jid = str(j.get("id") or "") or re.sub(r".*rec_idx=(\d+).*", r"\1", j.get("url", ""))
+            if not jid or str(j.get("active", "1")) == "0":
+                continue
+            pos = j.get("position", {}) or {}
+            rec = jobs.setdefault(jid, {
+                "id": jid,
+                "company": html.unescape(_g(j, "company", "detail", "name")),
+                "title": html.unescape(_g(pos, "title")),
+                "url": j.get("url", ""),
+                "location": html.unescape(_g(pos, "location", "name")).replace(",", ", "),
+                "job_type": _g(pos, "job-type", "name"),
+                "experience": _g(pos, "experience-level", "name"),
+                "education": _g(pos, "required-education-level", "name"),
+                "salary": _g(j, "salary", "name"),
+                "close_type": _g(j, "close-type", "name"),
+                "deadline": _date(j.get("expiration-date") or j.get("expiration-timestamp")),
+                "posted": _date(j.get("posting-date") or j.get("posting-timestamp")),
+                "duty": html.unescape(_g(pos, "job-code", "name")),
+                "queries": [],
+            })
+            if kw not in rec["queries"]:
+                rec["queries"].append(kw)
+        time.sleep(1)
+    return list(jobs.values())
+
+
+def match_bigco(jobs: list[dict], labs: list[dict], groups: list[dict]) -> list[dict]:
+    lab_norms = [(norm(l["name"]), l) for l in labs]
+    out = []
+    for j in jobs:
+        n = norm(j["company"])
+        lab = next((l for ln, l in lab_norms if len(n) >= 2 and (ln.startswith(n) or n.startswith(ln))), None)
+        g = group_of(j["company"], groups)
+        if not lab and not g:
+            continue
+        j["lab"] = lab["name"] if lab else ""
+        j["group"] = (lab or {}).get("group") or (g["name"] if g else "")
+        out.append(j)
+    return out
+
+
+# ---------------------------------------------------------------- main
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--companies-from", help="지정업체 API 응답 파일 (테스트용)")
+    ap.add_argument("--saramin-from", nargs="*", help="사람인 API 응답 JSON 파일들 (테스트용)")
+    ap.add_argument("--today", help="기준일 YYYY-MM-DD (테스트용)")
+    args = ap.parse_args()
+
+    now = datetime.now(KST)
+    today = args.today or now.strftime("%Y-%m-%d")
+    config = json.loads((SITE / "config.json").read_text(encoding="utf-8"))
+    bc = config.get("bigco", {})
+    groups = bc.get("groups", [])
+    prev = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
+
+    result = {
+        "generated_at": now.isoformat(timespec="seconds"),
+        "companies_updated_at": prev.get("companies_updated_at", ""),
+        "companies_status": prev.get("companies_status", ""),
+        "companies": prev.get("companies", []),
+        "jobs_status": "",
+        "jobs": [],
+        "groups": [{"name": g["name"], "url": g.get("url", "")} for g in groups],
+    }
+
+    # 1) 지정 대기업 연구소 (6일에 한 번)
+    stale = True
+    if result["companies_updated_at"] and result["companies"]:
+        age = now - datetime.fromisoformat(result["companies_updated_at"])
+        stale = age > timedelta(days=COMPANY_REFRESH_DAYS)
+    if args.companies_from:
+        stale = True
+    if stale:
+        try:
+            if args.companies_from:
+                rows = parse_page(Path(args.companies_from).read_text(encoding="utf-8"))[0]
+            else:
+                key = os.environ.get("DATA_GO_KR_KEY", "")
+                if not key:
+                    raise RuntimeError("DATA_GO_KR_KEY가 없습니다.")
+                print("지정업체 목록 수집 중...")
+                rows = fetch_companies(key)
+            labs = pick_bigco_labs(rows, groups)
+            result["companies"] = labs
+            result["companies_updated_at"] = now.isoformat(timespec="seconds")
+            result["companies_status"] = "ok" if labs else "지정업체 응답에서 대기업 연구소를 찾지 못했어요. Actions 로그의 응답 필드를 확인해 주세요."
+            print(f"대기업 연구소 {len(labs)}곳")
+        except Exception as e:
+            msg = str(e)
+            if any(s in msg for s in ("SERVICE_KEY", "PERMISSION", "인증키", "SERVICE ERROR", "HTTP 401", "HTTP 403")):
+                msg = ("공공데이터포털에서 '병무청_전문연구/산업기능요원 지정업체 정보' API 활용신청이 필요해요. "
+                       "(기존 인증키 그대로 쓰고 활용신청만 추가) — " + msg)
+            print("지정업체 수집 실패:", msg)
+            result["companies_status"] = msg
+
+    # 2) 사람인 대기업 공고 (매 실행)
+    try:
+        if args.saramin_from is not None:
+            raw = []
+            for f in args.saramin_from:
+                raw += fetch_saramin_from_file(f)
+        else:
+            key = os.environ.get("SARAMIN_KEY", "")
+            if not key:
+                raise LookupError("사람인 API 키(SARAMIN_KEY)가 등록되지 않아 대기업 공고 검색을 건너뛰었어요.")
+            print("사람인 대기업 공고 검색 중...")
+            raw = fetch_saramin(key, bc.get("search_keywords", []))
+        merged: dict[str, dict] = {}
+        for j in raw:  # 여러 키워드에서 같은 공고가 나오면 하나로 합친다
+            if j["id"] in merged:
+                merged[j["id"]]["queries"] += [q for q in j["queries"] if q not in merged[j["id"]]["queries"]]
+            else:
+                merged[j["id"]] = j
+        raw = list(merged.values())
+        jobs = match_bigco(raw, result["companies"], groups)
+        jobs = [j for j in jobs if not j["deadline"] or j["deadline"] >= today]
+        jobs.sort(key=lambda j: (j["posted"], j["id"]), reverse=True)
+        result["jobs"] = jobs
+        result["jobs_status"] = "ok"
+        print(f"사람인 검색 {len(raw)}건 중 대기업 공고 {len(jobs)}건")
+    except LookupError as e:
+        result["jobs_status"] = str(e)
+        print(e)
+    except Exception as e:
+        result["jobs_status"] = f"사람인 공고 수집 실패: {e}"
+        result["jobs"] = prev.get("jobs", [])  # 일시적 오류면 이전 결과 유지
+        print(result["jobs_status"])
+
+    write_json(OUT, result)
+    print(f"저장: {OUT.relative_to(SITE.parent)}")
+    return 0
+
+
+def fetch_saramin_from_file(path: str) -> list[dict]:
+    """테스트용: 저장된 사람인 응답을 fetch_saramin과 같은 형태로 바꾼다."""
+    orig = http_get
+    text = Path(path).read_text(encoding="utf-8")
+    globals()["http_get"] = lambda *a, **k: text
+    try:
+        return fetch_saramin("TEST", [Path(path).stem])
+    finally:
+        globals()["http_get"] = orig
+
+
+if __name__ == "__main__":
+    sys.exit(main())

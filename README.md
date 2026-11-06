@@ -65,6 +65,20 @@ GitHub Actions (3시간마다)
 관심 키워드에 맞는 새 공고가 올라오면 저장소에 이슈가 하나 생깁니다. 저장소 오른쪽 위 **Watch** 가 `All Activity` 로 되어 있으면
 GitHub 알림(이메일·모바일 앱)으로 받을 수 있습니다. 알림 메일이 안 오면 GitHub **Settings → Notifications** 에서 이메일 알림이 켜져 있는지 확인하세요.
 
+## 대기업 탭 (선택)
+
+대기업은 현역 배정인원이 없어 병역일터에 공고를 거의 올리지 않습니다. 4급 보충역은 대기업 연구소에도 신규편입할 수 있으므로, 사이트의 **대기업** 탭에서 두 가지를 따로 모아 보여줍니다.
+
+| 내용 | 데이터 | 필요한 설정 |
+|---|---|---|
+| 전문연구요원 지정 대기업 연구소 목록 (그룹별, 채용 사이트 링크) | 병무청 [전문연구/산업기능요원 지정업체 정보](https://www.data.go.kr/data/3066759/openapi.do) API, 6일마다 갱신 | 공공데이터포털에서 이 API **활용신청**만 추가 (인증키는 기존 `DATA_GO_KR_KEY` 그대로) |
+| 사람인에 올라온 대기업 공고 중 내 분야 키워드 검색 결과 | [사람인 오픈API](https://oapi.saramin.co.kr) 채용공고 검색, 매 실행 | 사람인 오픈API 이용 신청 후 받은 access-key를 저장소 Secret `SARAMIN_KEY`로 등록 |
+
+- 둘 다 선택 사항입니다. 설정하지 않으면 대기업 탭에 안내 문구만 보이고, 병역일터 공고 업데이트에는 영향이 없습니다.
+- 사람인 검색 키워드는 `site/config.json`의 `bigco.search_keywords`, 대기업 그룹과 채용 사이트 주소는 `bigco.groups`에서 바꿉니다.
+- 지정 대기업 연구소 목록이 있으면 사람인 공고 중 그 회사 공고만, 없으면 `bigco.groups`의 회사명으로 대기업 공고를 고릅니다.
+- 사람인에 올리지 않고 자체 채용 사이트에만 올리는 대기업 공고는 잡을 수 없습니다. 그래서 지정 연구소 목록에 각 그룹 채용 사이트 링크를 달아 두었습니다.
+
 ## 바꿔 쓰기
 
 `site/config.json`
@@ -101,6 +115,8 @@ Windows PowerShell에서는 `$env:DATA_GO_KR_KEY="인증키"; python scripts/fet
 ```
 .github/workflows/update.yml  자동 수집·배포 워크플로
 scripts/fetch_jobs.py         API 수집·정리 스크립트
+scripts/fetch_bigco.py        대기업 연구소 목록·사람인 대기업 공고 수집
+site/data/bigco.json          대기업 탭 데이터 (자동 생성)
 site/index.html               웹사이트 (HTML·CSS·JS 한 파일)
 site/config.json              사이트 설정, 관심 키워드
 site/data/jobs.json           수집한 공고 (자동 생성)

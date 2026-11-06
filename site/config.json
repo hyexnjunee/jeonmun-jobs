@@ -14,5 +14,33 @@
     "AI", "인공지능", "머신러닝", "딥러닝", "강화학습", "데이터", "알고리즘", "예측"
   ],
   "new_days": 3,
-  "notify_new_matches": true
+  "notify_new_matches": true,
+  "bigco": {
+    "search_keywords": [
+      "최적화", "Operations Research", "수리최적화", "스케줄링", "물류 최적화",
+      "SCM", "공급망", "생산계획", "산업공학"
+    ],
+    "groups": [
+      {"name": "삼성", "match": ["삼성"], "url": "https://www.samsungcareers.com"},
+      {"name": "LG", "match": ["LG"], "url": "https://careers.lg.com"},
+      {"name": "SK", "match": ["SK"], "url": "https://www.skcareers.com"},
+      {"name": "현대자동차그룹", "match": ["현대자동차", "기아", "현대모비스", "현대오토에버", "현대글로비스", "현대위아", "현대로템", "현대제철", "현대건설", "현대엔지니어링"], "url": "https://talent.hyundai.com"},
+      {"name": "HD현대", "match": ["HD현대", "에이치디현대", "HD한국조선해양"], "url": ""},
+      {"name": "포스코", "match": ["포스코", "POSCO"], "url": ""},
+      {"name": "한화", "match": ["한화"], "url": "https://www.hanwhain.com"},
+      {"name": "CJ", "match": ["CJ"], "url": "https://recruit.cj.net"},
+      {"name": "롯데", "match": ["롯데"], "url": ""},
+      {"name": "GS", "match": ["GS칼텍스", "GS리테일", "GS건설", "GS에너지"], "url": ""},
+      {"name": "두산", "match": ["두산"], "url": ""},
+      {"name": "LS", "match": ["LS전선", "LS일렉트릭", "LS엠트론"], "url": ""},
+      {"name": "네이버", "match": ["네이버", "NAVER"], "url": "https://recruit.navercorp.com"},
+      {"name": "카카오", "match": ["카카오"], "url": "https://careers.kakao.com"},
+      {"name": "쿠팡", "match": ["쿠팡"], "url": "https://www.coupang.jobs"},
+      {"name": "KT", "match": ["KT"], "url": "https://recruit.kt.com"},
+      {"name": "HMM", "match": ["HMM", "에이치엠엠"], "url": ""},
+      {"name": "대한항공", "match": ["대한항공"], "url": ""},
+      {"name": "효성", "match": ["효성"], "url": ""},
+      {"name": "코오롱", "match": ["코오롱"], "url": ""}
+    ]
+  }
 }
