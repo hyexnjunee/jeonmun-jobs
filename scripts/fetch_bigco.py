@@ -212,6 +212,43 @@ def pick_bigco_labs(rows: list[dict], groups: list[dict]) -> list[dict]:
     return out
 
 
+# 로그로 확인한 업종구분코드 (전문연구요원 = 2로 시작)
+EOPJONG_LABELS = {
+    "21101": "과학기술원", "21102": "과학기술원 부설연구소", "21103": "기초과학연구기관",
+    "21201": "정부출연연구기관", "21301": "대학 선도연구센터", "21401": "병원·재단 연구소",
+    "21501": "대기업부설연구소", "21502": "중소기업부설연구소", "21503": "벤처기업부설연구소",
+    "21504": "중견기업부설연구소", "23101": "자연계 대학원", "23201": "대학부설연구소", "24101": "방위산업연구기관",
+}
+GYUMO_LABELS = {"01": "대기업", "02": "중소기업", "03": "벤처기업", "04": "중견기업"}
+LABS_OUT = SITE / "data" / "labs.json"
+
+
+def export_all_labs(rows: list[dict], groups: list[dict]) -> int:
+    """전문연구요원 지정업체 전체(업종코드 2xxxx)를 labs.json으로 저장. 연락처·사업자번호는 넣지 않는다."""
+    out = []
+    for raw in rows:
+        r = {k.lower(): (v or "").strip() for k, v in raw.items()}
+        code = _pick(r, "eopjonggbcd", "eopjong", prefer_nm=False)
+        if not code.startswith("2"):
+            continue
+        name = html.unescape(_pick(r, "eopchenm", "eopche"))
+        addr = re.sub(r"\s+", " ", _pick(r, "eopcheaddr", "juso", "addr", prefer_nm=False))
+        g = group_of(name, groups)
+        out.append({
+            "name": name,
+            "type": EOPJONG_LABELS.get(code, code),
+            "size": GYUMO_LABELS.get(_pick(r, "gegyumocd", "gyumo", prefer_nm=False), ""),
+            "region": " ".join(addr.split()[:2]),
+            "address": addr,
+            "year": re.sub(r"\D", "", _pick(r, "seonjeongyy", "seonjeong", prefer_nm=False))[:4],
+            "homepage": _homepage(_pick(r, "hmpgaddr", "hmpg", "homepage", prefer_nm=False)),
+            "group": g["name"] if g else "",
+        })
+    out = sorted({o["name"]: o for o in out}.values(), key=lambda o: o["name"])
+    write_json(LABS_OUT, {"generated_at": datetime.now(KST).isoformat(timespec="seconds"), "count": len(out), "labs": out})
+    return len(out)
+
+
 # ---------------------------------------------------------------- 2) 사람인 대기업 공고
 def _g(d, *path, default=""):
     for p in path:
@@ -337,6 +374,7 @@ def main() -> int:
                     raise RuntimeError("DATA_GO_KR_KEY가 없습니다.")
                 print("지정업체 목록 수집 중...")
                 rows = fetch_companies(key)
+            print(f"전문연 지정업체 전체 {export_all_labs(rows, groups)}곳 → site/data/labs.json")
             labs = pick_bigco_labs(rows, groups)
             result["companies"] = labs
             result["companies_updated_at"] = now.isoformat(timespec="seconds")
