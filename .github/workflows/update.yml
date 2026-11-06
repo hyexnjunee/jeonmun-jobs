@@ -46,6 +46,7 @@ jobs:
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
           SARAMIN_KEY: ${{ secrets.SARAMIN_KEY }}
+          BIGCO_FORCE: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }} # 수동 실행 때는 지정업체 목록을 새로 받음
         run: python scripts/fetch_bigco.py
 
       - name: 바뀐 데이터 커밋

@@ -132,6 +132,8 @@ def fetch_companies(key: str) -> list[dict]:
 
 BIGCO_LAB_CODE = "21501"  # 업종구분코드: 21502 중소, 21503 벤처, 21504 중견기업부설연구소 → 21501 대기업부설연구소로 추정
 ANCHORS = ["삼성전자", "LG전자", "SK하이닉스", "현대자동차", "LG화학", "삼성SDI"]
+GROUP_PREFIXES = ["삼성", "LG", "SK", "현대", "기아", "HD현대", "포스코", "한화", "CJ", "롯데", "GS", "두산", "LS",
+                  "네이버", "카카오", "쿠팡", "KT", "HMM", "LIG", "엘아이지", "대한항공", "효성", "코오롱", "토스"]
 
 
 def _is_bigco_factory(rows: list[dict]):
@@ -151,6 +153,16 @@ def _is_bigco_factory(rows: list[dict]):
     from collections import Counter
     big_code = Counter(anchor_codes).most_common(1)[0][0] if len(anchor_codes) >= 2 else None
     if rs:
+        by_code: dict[str, list[str]] = {}
+        for r in research:
+            by_code.setdefault(eopjong(r), []).append(_pick(r, "eopchenm", "eopche"))
+        for code, names in sorted(by_code.items()):
+            print(f"  [확인용] 업종 {code} ({len(names)}곳): {', '.join(names[:4])}")
+        g01 = [(_pick(r, "eopchenm", "eopche"), eopjong(r)) for r in research if gyumo(r) == "01"]
+        print("  [확인용] 기업구분 01:", g01[:10])
+        gm = [(_pick(r, "eopchenm", "eopche"), eopjong(r), gyumo(r)) for r in research
+              if any(norm(_pick(r, "eopchenm", "eopche")).startswith(norm(a)) for a in GROUP_PREFIXES)]
+        print(f"  [확인용] 대기업 그룹명으로 시작하는 전문연 업체 {len(gm)}곳:", gm[:40])
         print("  [확인용] 업종코드 분포(전문연):", Counter(eopjong(r) for r in research).most_common(8))
         print("  [확인용] 기업구분코드 분포(전문연):", Counter(gyumo(r) for r in research).most_common(8),
               "| 기준 대기업 코드:", anchor_codes, "→", big_code)
@@ -304,7 +316,7 @@ def main() -> int:
     if result["companies_updated_at"] and result["companies"]:
         age = now - datetime.fromisoformat(result["companies_updated_at"])
         stale = age > timedelta(days=COMPANY_REFRESH_DAYS)
-    if args.companies_from:
+    if args.companies_from or os.environ.get("BIGCO_FORCE"):
         stale = True
     if stale:
         try:
