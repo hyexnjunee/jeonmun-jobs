@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-11-06T13:45:19+09:00",
+ "generated_at": "2026-11-06T13:47:12+09:00",
  "companies_updated_at": "",
- "companies_status": "HTTP 400: <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<OpenAPI_ServiceResponse>\n<cmmMsgHeader>\n  <errMsg>NO_OPENAPI_SERVICE_ERROR</errMsg>\n  <returnAuthMsg>해당 오픈API 서비스가 없거나 폐기됨</returnAuthMsg>\n  <returnReasonCode>12</returnReasonCode>\n</cmmMsgHeader>\n</OpenAPI_ServiceResponse>\n",
+ "companies_status": "지정업체 API 주소를 찾지 못했어요 (모두 '서비스 없음' 응답): jjEopChe/list2, JjEopChe/list2, jjEopChe/list, JjEopChe/list, JJEopChe/list2",
  "companies": [],
  "jobs_status": "사람인 API 키(SARAMIN_KEY)가 등록되지 않아 대기업 공고 검색을 건너뛰었어요.",
  "jobs": [],
