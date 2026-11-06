@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-06T14:06:28+09:00",
+ "generated_at": "2026-11-06T14:08:34+09:00",
  "companies_updated_at": "2026-11-06T14:06:28+09:00",
  "companies_status": "ok",
  "companies": [
@@ -34,6 +34,10 @@
  "jobs_status": "사람인 API 키(SARAMIN_KEY)가 등록되지 않아 대기업 공고 검색을 건너뛰었어요.",
  "jobs": [],
  "groups": [
+  {
+   "name": "토스",
+   "url": ""
+  },
   {
    "name": "삼성",
    "url": "https://www.samsungcareers.com"
