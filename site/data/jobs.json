@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-11-09T20:39:04+09:00",
+ "generated_at": "2026-11-10T07:25:26+09:00",
  "source": "병무청 병역일터 채용공고 (공공데이터포털 오픈API)",
- "count": 49,
+ "count": 48,
  "jobs": [
   {
    "id": "2000001555693",
@@ -1384,44 +1384,6 @@
    "keywords": [
     "AI",
     "강화학습"
-   ]
-  },
-  {
-   "id": "2000001508289",
-   "title": "[서울 강남구] Data Analytics Engineer",
-   "company": "(주)데이터라이즈 기업부설연구소",
-   "industry": "중소기업부설연구소",
-   "location": "서울특별시 강남구 역삼동",
-   "sido": "서울특별시",
-   "service": "현역",
-   "education": "석사",
-   "major": "",
-   "career": "신입/경력",
-   "salary": "4000~5000만원",
-   "salary_min": 4000,
-   "duty": "데이터 프로파일링 파이프라인을 관리하며 고객사 CRM 캠페인의 대상자가 추출되는 프로세스 자동화",
-   "welfare": [
-    "국민연금",
-    "고용보험",
-    "산재보험",
-    "건강보험",
-    "연차",
-    "월차",
-    "향후정직원",
-    "건강검진"
-   ],
-   "apply_method": "홈페이지",
-   "headcount": "1명",
-   "deadline": "2026-11-09",
-   "always_open": false,
-   "posted": "2026-09-10",
-   "updated": "2026-09-10",
-   "homepage": "https://datarize.ai/ko",
-   "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001508289",
-   "first_seen": "2026-09-10",
-   "field": [],
-   "keywords": [
-    "데이터"
    ]
   },
   {
