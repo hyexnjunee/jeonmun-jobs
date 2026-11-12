@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-12T02:12:39+09:00",
+ "generated_at": "2026-11-12T20:21:27+09:00",
  "source": "병무청 병역일터 채용공고 (공공데이터포털 오픈API)",
  "count": 52,
  "jobs": [
@@ -200,7 +200,7 @@
   },
   {
    "id": "2000001554891",
-   "title": "[마인드로직] 전문연구요원 / AI 소프트웨어 엔지니어 / 서울 강남구",
+   "title": "[마인드로직] 전문연구요원 / 보안엔지니어 / 서울 강남구",
    "company": "마인드로직(주) 기업부설연구소",
    "industry": "벤처기업부설연구소",
    "location": "서울특별시 중구 저동1가",
@@ -211,7 +211,7 @@
    "career": "경력 (3년이상)",
    "salary": "7000~8000만원",
    "salary_min": 7000,
-   "duty": "AI 소프트웨어개발",
+   "duty": "보안엔지니어링 개발",
    "welfare": [
     "국민연금",
     "고용보험",
@@ -223,14 +223,12 @@
    "deadline": "2026-12-24",
    "always_open": false,
    "posted": "2026-11-08",
-   "updated": "2026-11-08",
+   "updated": "2026-11-12",
    "homepage": "https://mindlogic.ai/ko",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001554891",
    "first_seen": "2026-11-08",
    "field": [],
-   "keywords": [
-    "AI"
-   ]
+   "keywords": []
   },
   {
    "id": "2000001554890",
@@ -694,10 +692,10 @@
    ],
    "apply_method": "홈페이지",
    "headcount": "3명이상",
-   "deadline": "2026-11-30",
+   "deadline": "2027-01-03",
    "always_open": false,
    "posted": "2026-10-23",
-   "updated": "2026-10-23",
+   "updated": "2026-11-12",
    "homepage": "https://recruit.madup.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001545496",
    "first_seen": "2026-10-23",
@@ -728,10 +726,10 @@
    ],
    "apply_method": "홈페이지",
    "headcount": "3명이상",
-   "deadline": "2026-11-30",
+   "deadline": "2027-01-03",
    "always_open": false,
    "posted": "2026-10-23",
-   "updated": "2026-10-23",
+   "updated": "2026-11-12",
    "homepage": "https://recruit.madup.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001545495",
    "first_seen": "2026-10-23",
@@ -1380,10 +1378,10 @@
    ],
    "apply_method": "홈페이지",
    "headcount": "3명이상",
-   "deadline": "2026-11-30",
+   "deadline": "2027-01-03",
    "always_open": false,
    "posted": "2026-10-01",
-   "updated": "2026-11-02",
+   "updated": "2026-11-12",
    "homepage": "https://recruit.madup.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001530489",
    "first_seen": "2026-10-01",

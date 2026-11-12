@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-06T14:27:41+09:00",
- "count": 1414,
+ "generated_at": "2026-11-12T20:21:59+09:00",
+ "count": 1411,
  "labs": [
   {
    "name": "(유)디씨티머티리얼 기업부설연구소",
@@ -390,16 +390,6 @@
    "address": "경기도 화성시 동탄구 동탄산단9길 23-12 AP시스템 7층, 3층 연구소 1,2",
    "year": "2017",
    "homepage": "https://www.nextinsol.com",
-   "group": ""
-  },
-  {
-   "name": "(주)넥스팜코리아 중앙연구소",
-   "type": "중소기업부설연구소",
-   "size": "중소기업",
-   "region": "충청북도 청주시",
-   "address": "충청북도 청주시 흥덕구 오송읍 충청북도 청주시 흥덕구 오송읍 오송생명4로 168-41",
-   "year": "2022",
-   "homepage": "https://www.nexpharm.co.kr",
    "group": ""
   },
   {
@@ -860,16 +850,6 @@
    "address": "경기도 안양시 만안구 안양동 경기도 안양시 만안구 전파로62번길 26 (안양동)",
    "year": "2025",
    "homepage": "https://www.draxfit.com",
-   "group": ""
-  },
-  {
-   "name": "(주)디비엔텍 기업부설연구소",
-   "type": "벤처기업부설연구소",
-   "size": "벤처기업",
-   "region": "인천광역시 서해구",
-   "address": "인천광역시 서해구 로봇랜드로 155-11 903, 905호",
-   "year": "2020",
-   "homepage": "http://www.dbnt.co.kr/",
    "group": ""
   },
   {
@@ -4663,16 +4643,6 @@
    "group": ""
   },
   {
-   "name": "(주)엔피에스 기술연구소",
-   "type": "벤처기업부설연구소",
-   "size": "벤처기업",
-   "region": "충청북도 청주시",
-   "address": "충청북도 청주시 흥덕구 오송읍 충청북도 청주시 흥덕구 오송읍 오송생명로 208-9 201호(리움갤러리96)",
-   "year": "2024",
-   "homepage": "http://www.npstech.co.kr",
-   "group": ""
-  },
-  {
    "name": "(주)엘렉시 기업부설연구소 Embedded Intelligence Lab.",
    "type": "벤처기업부설연구소",
    "size": "벤처기업",
@@ -7533,16 +7503,6 @@
    "group": ""
   },
   {
-   "name": "(주)피알앤디컴퍼니 기업부설연구소",
-   "type": "벤처기업부설연구소",
-   "size": "벤처기업",
-   "region": "서울특별시 서초구",
-   "address": "서울특별시 서초구 서초동 서울특별시 서초구 서초대로74길 14 8층 (서초동, The Asset)",
-   "year": "2022",
-   "homepage": "https://prnd.co.kr",
-   "group": ""
-  },
-  {
    "name": "(주)피알지에스앤텍 기업부설연구소",
    "type": "벤처기업부설연구소",
    "size": "벤처기업",
@@ -7569,7 +7529,7 @@
    "region": "서울특별시 송파구",
    "address": "서울특별시 송파구 문정동 서울특별시 송파구 법원로11길 7 문정현대지식산업센터 C동 1004, 1005호 ( 문정동)",
    "year": "2017",
-   "homepage": "https://0",
+   "homepage": "https://pnecorp.co.kr",
    "group": ""
   },
   {
@@ -7790,6 +7750,16 @@
    "address": "경기도 성남시 분당구 서현동 경기도 성남시 분당구 황새울로319번길 8-4, 2층 4층",
    "year": "2018",
    "homepage": "https://www.haemaru.co.kr",
+   "group": ""
+  },
+  {
+   "name": "(주)헤이딜러컴퍼니 기업부설연구소",
+   "type": "벤처기업부설연구소",
+   "size": "벤처기업",
+   "region": "서울특별시 서초구",
+   "address": "서울특별시 서초구 서초동 서울특별시 서초구 서초대로74길 14 8층 (서초동, The Asset)",
+   "year": "2022",
+   "homepage": "https://prnd.co.kr",
    "group": ""
   },
   {
@@ -11377,7 +11347,7 @@
    "type": "중소기업부설연구소",
    "size": "중소기업",
    "region": "경기도 용인시",
-   "address": "경기도 용인시 기흥구 신갈동 경기도 용인시 기흥구 신정로 101 1층 (신갈동)",
+   "address": "경기도 용인시 기흥구 신정로 101 1층, 2층 (신갈동)",
    "year": "2026",
    "homepage": "https://www.airbility.co.kr",
    "group": ""
