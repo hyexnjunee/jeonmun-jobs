@@ -1,8 +1,43 @@
 {
- "generated_at": "2026-11-16T15:37:03+09:00",
+ "generated_at": "2026-11-17T04:38:42+09:00",
  "source": "병무청 병역일터 채용공고 (공공데이터포털 오픈API)",
  "count": 59,
  "jobs": [
+  {
+   "id": "2000001563289",
+   "title": "AI 교육플랫폼 개발자",
+   "company": "(주)인공지능연구원 기업부설연구소",
+   "industry": "중소기업부설연구소",
+   "location": "경기도 성남시 분당구 정자동",
+   "sido": "경기도",
+   "service": "현역",
+   "education": "석사",
+   "major": "",
+   "career": "신입/경력",
+   "salary": "3400~3600만원",
+   "salary_min": 3400,
+   "duty": "AI 응용 개발, 온라인 교육 플랫폼 LMS 개선, 각종 업무 자동화 개발",
+   "welfare": [
+    "국민연금",
+    "고용보험",
+    "산재보험",
+    "건강보험"
+   ],
+   "apply_method": "병역일터 이력서",
+   "headcount": "3명이상",
+   "deadline": "2026-11-30",
+   "always_open": false,
+   "posted": "2026-11-16",
+   "updated": "2026-11-16",
+   "homepage": "http://airi.kr",
+   "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001563289",
+   "first_seen": "2026-11-17",
+   "field": [],
+   "keywords": [
+    "AI",
+    "인공지능"
+   ]
+  },
   {
    "id": "2000001563097",
    "title": "[뉴로코어]전문연구요원 채용-AI",
@@ -1748,43 +1783,6 @@
    "keywords": [
     "데이터",
     "예측"
-   ]
-  },
-  {
-   "id": "2000001515089",
-   "title": "(경기 안양시)전문연구요원 - AI 소프트웨어 개발",
-   "company": "(주)유비씨 기술연구소",
-   "industry": "중소기업부설연구소",
-   "location": "경기도 안양시 동안구 관양동",
-   "sido": "경기도",
-   "service": "현역",
-   "education": "석사",
-   "major": "공학계",
-   "career": "신입/경력",
-   "salary": "3400~3600만원",
-   "salary_min": 3400,
-   "duty": "ROS 기반 로봇 제어·강화학습·시뮬레이터 개발, LLM 에이전트·RAG·툴콜링 개발",
-   "welfare": [
-    "국민연금",
-    "고용보험",
-    "산재보험",
-    "건강보험",
-    "연차",
-    "향후정직원"
-   ],
-   "apply_method": "병역일터 이력서, 연락후 내사",
-   "headcount": "1명",
-   "deadline": "2026-11-16",
-   "always_open": false,
-   "posted": "2026-09-17",
-   "updated": "2026-09-17",
-   "homepage": "",
-   "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001515089",
-   "first_seen": "2026-09-17",
-   "field": [],
-   "keywords": [
-    "AI",
-    "강화학습"
    ]
   },
   {
