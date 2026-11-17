@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-17T04:38:42+09:00",
+ "generated_at": "2026-11-17T12:56:28+09:00",
  "source": "병무청 병역일터 채용공고 (공공데이터포털 오픈API)",
  "count": 59,
  "jobs": [
@@ -573,7 +573,7 @@
   },
   {
    "id": "2000001552089",
-   "title": "(주)스마트링크 머신비전 AI 전문연구요원 채용 (석사 이상)",
+   "title": "(주)스마트링크 머신비전 AI 전문연구요원 채용 (석사이상)",
    "company": "(주)스마트링크 기업부설연구소",
    "industry": "중소기업부설연구소",
    "location": "인천광역시 연수구 송도동",
@@ -601,7 +601,7 @@
    "deadline": "2026-11-30",
    "always_open": false,
    "posted": "2026-11-04",
-   "updated": "2026-11-04",
+   "updated": "2026-11-17",
    "homepage": "https://www.smartlink21.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001552089",
    "first_seen": "2026-11-04",
