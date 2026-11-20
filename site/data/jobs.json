@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-20T05:41:55+09:00",
+ "generated_at": "2026-11-20T11:21:55+09:00",
  "source": "병무청 병역일터 채용공고 (공공데이터포털 오픈API)",
  "count": 61,
  "jobs": [
@@ -673,7 +673,7 @@
    "deadline": "2026-11-30",
    "always_open": false,
    "posted": "2026-11-04",
-   "updated": "2026-11-17",
+   "updated": "2026-11-20",
    "homepage": "https://www.smartlink21.com",
    "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001552089",
    "first_seen": "2026-11-04",
