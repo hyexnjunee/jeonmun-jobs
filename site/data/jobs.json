@@ -1,8 +1,43 @@
 {
- "generated_at": "2026-11-20T11:21:55+09:00",
+ "generated_at": "2026-11-21T05:26:15+09:00",
  "source": "병무청 병역일터 채용공고 (공공데이터포털 오픈API)",
  "count": 61,
  "jobs": [
+  {
+   "id": "2000001567898",
+   "title": "기술지원 전문연구요원 모집",
+   "company": "(주)마크베이스 기업부설연구소",
+   "industry": "벤처기업부설연구소",
+   "location": "서울특별시 강남구 역삼동",
+   "sido": "서울특별시",
+   "service": "현역",
+   "education": "석사",
+   "major": "공학계",
+   "career": "신입/경력",
+   "salary": "3600~3800만원",
+   "salary_min": 3600,
+   "duty": "기술지원 전문연구요원 모집",
+   "welfare": [
+    "국민연금",
+    "산재보험",
+    "건강보험",
+    "연차",
+    "정기휴가",
+    "건강검진",
+    "본인의료비지원"
+   ],
+   "apply_method": "병역일터 이력서",
+   "headcount": "1명",
+   "deadline": "2026-12-31",
+   "always_open": false,
+   "posted": "2026-11-20",
+   "updated": "2026-11-20",
+   "homepage": "https://www.machbase.com",
+   "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001567898",
+   "first_seen": "2026-11-21",
+   "field": [],
+   "keywords": []
+  },
   {
    "id": "2000001564692",
    "title": "[(주)지엔티파마] AH사업본부(동물용의약품 R&D·임상) 수의사 채용 (전문연구요원 신규편입 TO 확보)",
@@ -1780,42 +1815,6 @@
    "field": [],
    "keywords": [
     "AI"
-   ]
-  },
-  {
-   "id": "2000001519291",
-   "title": "AI Research engineer 전문연구요원(신규/전직)",
-   "company": "(주)이너버즈 기업부설연구소",
-   "industry": "벤처기업부설연구소",
-   "location": "서울특별시 강남구 도곡동",
-   "sido": "서울특별시",
-   "service": "현역",
-   "education": "석사",
-   "major": "공학계",
-   "career": "신입/경력",
-   "salary": "7000~8000만원",
-   "salary_min": 7000,
-   "duty": "모델 경량화 및 인퍼런스 가속화/ 대규모 데이터셋 수집, 정제, 평가",
-   "welfare": [
-    "국민연금",
-    "고용보험",
-    "산재보험",
-    "건강보험",
-    "연차"
-   ],
-   "apply_method": "병역일터 이력서",
-   "headcount": "1명",
-   "deadline": "2026-11-20",
-   "always_open": false,
-   "posted": "2026-09-21",
-   "updated": "2026-09-22",
-   "homepage": "",
-   "url": "https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no=2000001519291",
-   "first_seen": "2026-09-21",
-   "field": [],
-   "keywords": [
-    "AI",
-    "데이터"
    ]
   },
   {
